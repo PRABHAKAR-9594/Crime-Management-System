@@ -1,17 +1,25 @@
-import 'dotenv/config';
-import connectDB from './db/index.js';
-import app from './app.js';
+import express from 'express';
+import cors from 'cors';
+import {connectDB}  from './db/index.js';
+import dotenv from 'dotenv';
+import { Reg_route } from '../Routes/Reg.route.js';
+
+dotenv.config();
 
 
+const app = express();
+
+app.use(cors());
+app.use(express.json())
+
+//For Starting the Db server 
 connectDB()
-    .then(() => {
-        app.on("error", (error) => {
-            console.log(`MongoDB Connected But Error in App Listening : ${error}`);
-        })
-        app.listen(process.env.PORT || 3000, () => {
-            console.log(`App is listening on PORT : ${process.env.PORT}`);
-        })
-    })
-    .catch((error) => {
-        console.log(`MongoDB Connection Failed : ${error}`);
-    })
+
+//Passing the parameter to the Routes 
+
+Reg_route(app)
+
+app.listen(process.env.PORT,()=>{
+console.log(`Server is running on http://localhost:${process.env.PORT} `);
+
+})
