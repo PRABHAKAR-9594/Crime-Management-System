@@ -6,6 +6,7 @@ export const verify_reg = (req, res, next) => {
 
     try {
         // Convert email to uppercase if provided
+    
         if (req.body.email) {
             req.body.email = req.body.email.toUpperCase();
         }
@@ -56,6 +57,13 @@ export const verify_reg = (req, res, next) => {
                 message: 'Failed! Phone number was not provided in request body'
             });
         }
+
+        let AdharNumber=req.body.AdharNumber
+        if (AdharNumber.length !=12) {
+           return res.status(400).send({message:'Adhar Number Must be 12 Digits !'})
+            
+        }
+
 
         if (!req.body.AdharNumber) {
             return res.status(400).send({
