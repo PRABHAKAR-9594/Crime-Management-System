@@ -3,6 +3,7 @@ import cors from 'cors';
 import {connectDB}  from './db/index.js';
 import dotenv from 'dotenv';
 import { Reg_route } from '../Routes/Reg.route.js';
+import { LoginRoute } from '../Routes/Login.route.js';
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ app.use(express.json())
 connectDB()
 
 //Passing the parameter to the Routes 
-
+LoginRoute(app)
 Reg_route(app)
 
 app.listen(process.env.PORT,()=>{
