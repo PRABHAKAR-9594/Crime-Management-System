@@ -8,12 +8,14 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, 'Email is required'],    // Mandatory with custom error message
+        required: [true, 'Email is required'],
+        trim: true   
     
     },
     passwordHash: {
         type: String,
-        required: [true, 'Password is required']  // Mandatory
+        required: [true, 'Password is required'] , // Mandatory
+        trim: true                 // Removes leading/tr
     },
     role: {
         type: String,
@@ -23,25 +25,30 @@ const userSchema = new mongoose.Schema({
     },
     firstName: {
         type: String,
-        required: [true, 'First name is required'] // Mandatory
+        required: [true, 'First name is required'], // Mandatory
+        trim: true
     },
     lastName: {
         type: String,
-        required: [true, 'Last name is required']  // Mandatory
+        required: [true, 'Last name is required'],  // Mandatory
+        trim: true
     },
     phone: {
         type: String,
         required: [true, 'Phone number is required'], // Mandatory
+        trim: true
        
     },
     AdharNumber:{
         type:String,
-        required:[true,'Adhar number is required']
+        required:[true,'Adhar number is required'],
+        trim: true
     },
     address: {
         street: {
             type: String,
-            required: [true, 'Street address is required'] // Mandatory
+            required: [true, 'Street address is required'], // Mandatory
+            trim: true
         },
         city: {
             type: String,
