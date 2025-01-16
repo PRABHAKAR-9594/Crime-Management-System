@@ -1,0 +1,84 @@
+/* General Navbar Styles */
+
+footer {
+    background-color: #030303;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    padding: 20px 0;
+    font-size: 14px;
+  
+  }
+  
+  .footer-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+  
+  .footer-logo h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ecf0f1;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .footer-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .footer-links a:hover {
+    color: #3498db;
+  }
+  
+  .footer-contact p {
+    font-size: 14px;
+  }
+  
+  .footer-contact a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+  .footer-contact a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .footer-bottom p {
+    font-size: 12px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-wrapper {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .footer-links {
+      margin-top: 10px;
+      gap: 15px;
+    }
+  
+    .footer-contact {
+      margin-top: 10px;
+    }
+  }
+  
+  
+  
+  
