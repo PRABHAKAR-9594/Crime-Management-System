@@ -3,4 +3,5 @@ import { verify_reg,uniqueUsername,uniqueAdhar,uniqueEmail } from "../Middleware
 
 export const Reg_route=(app)=>{
     app.post('/register',[verify_reg,uniqueUsername,uniqueAdhar,uniqueEmail],userReg)
+    app.post('/registerValidation',[verify_reg,uniqueUsername,uniqueAdhar,uniqueEmail])
 }

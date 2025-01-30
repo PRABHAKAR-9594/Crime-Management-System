@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        trim: true                                // Removes leading/trailing spaces
+        trim: true                                
     },
     email: {
         type: String,
@@ -12,11 +12,11 @@ const userSchema = new mongoose.Schema({
     },
     passwordHash: {
         type: String,
-        trim: true                 // Removes leading/tr
+        trim: true                 
     },
     role: {
         type: String,
-        enum: ['user', 'admin','department'],                  // Acceptable values
+        enum: ['user', 'admin','department'],                  
         default: 'user'
     },
     firstName: {

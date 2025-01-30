@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { Reg_route } from '../Routes/Reg.route.js';
 import { LoginRoute } from '../Routes/Login.route.js';
 import { crimeRegFormRoute } from '../Routes/crimeRegForm.route.js';
+import { GmailApi_Route } from '../Routes/Gmail.route.js';
 dotenv.config();
 
 
@@ -20,6 +21,13 @@ connectDB()
 LoginRoute(app)
 Reg_route(app)
 crimeRegFormRoute(app)
+GmailApi_Route(app)
+
+
+
+
+
+
 
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);

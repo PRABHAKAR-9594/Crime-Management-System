@@ -1,0 +1,160 @@
+.main {
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+}
+
+.container {
+    display: flex;
+    background-color: #0a0a0a;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    height: 750px
+}
+
+.left-side {
+    flex: 1;
+    padding: 30px;
+    color: #fff;
+}
+
+h2 {
+    color: #ff0000;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.input-container {
+    flex: 1;
+}
+
+input, select {
+    border: 1px solid #333;
+    border-radius: 6px;
+    background-color: #222;
+    color: #fff;
+    font-size: 20px;
+    width: 100%;
+}
+
+input:focus, select:focus {
+    border-color: #ff0000;
+    outline: none;
+}
+
+button {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #cc0000;
+}
+
+.error-message {
+    color: #f00;
+    font-size: 0.9rem;
+}
+
+.right-side {
+    background-color: #1d1c1c;
+}
+
+img {
+    height: 300px;
+    padding-left: 150px;
+}
+
+.right-side h1 {
+    color: #f00;
+    padding: 30px;
+}
+
+h3 {
+    color: rgb(241, 236, 236);
+    width: 500px;
+    padding-left: 100px;
+}
+
+button{
+    margin-left: 40%;
+  
+}
+.Additional-content{
+    color: rgb(247, 235, 235);
+    padding: 50px;
+}
+
+
+.alert-container {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    max-width: 300px;
+    z-index: 1000;
+    color: rgb(221, 208, 208);
+    border: 4px solid rgb(36, 27, 27);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: rgb(232, 7, 3);
+}
+
+.alert-container-success {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    max-width: 300px;
+    z-index: 1000;
+    color: rgb(221, 208, 208);
+    border: 4px solid rgb(36, 27, 27);
+    border-radius: 10px;
+    padding: 15px;
+    background-color: rgba(0, 165, 6, 0.901);
+}
+
+#otp{
+    width: 60px;
+}
+
+/* Basic link styling to make it look like normal text */
+.text-link {
+    margin-left: 30px;
+    color: inherit; /* Inherit the text color from the parent */
+    text-decoration: none; /* Remove the underline */
+    font-weight: normal; /* Optional: adjust font weight */
+    cursor: pointer; /* Show the pointer cursor on hover */
+}
+
+/* Hover effect to emphasize the link */
+.text-link:hover {
+    color: blue; /* Change text color on hover */
+    
+}
+
+/* Optional: Focus state for better accessibility */
+.text-link:focus {
+    outline: 2px dashed blue;
+    outline-offset: 4px;
+}
+
