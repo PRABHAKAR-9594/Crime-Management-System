@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'bright-dark-red': '#ff0000', // Example hex code for a bright dark red
+        'text-bg-bright-dark-red':'#ff0000',
+      },
+    },
   },
   plugins: [],
 }

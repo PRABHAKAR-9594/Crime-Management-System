@@ -4,65 +4,76 @@ import {
   faShieldAlt,
   faSearch,
   faFolderOpen,
-  faUser,
+  faUser ,
   faAmbulance,
   faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import './Home.css';
 
 export default function Home() {
   return (
-    <div>
-      <section className="main-content">
-        <div className="main-home">
+    <div className=''>
+      <section className="bg-[#0f0f0fee] text-white py-10 px-5">
+        <div className="h-[550px] flex flex-col justify-center mt-[50px]">
           {/* Main Heading with a Quote */}
-          <div className="intro">
-            <h1>Welcome to the Crime Management System</h1>
-            <p className="quote">"Don't worry, we are with you every step of the way!"</p>
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-[#ff0000] mb-2">Welcome to the Crime Management System</h1>
+            <p className="text-lg italic text-gray-300">"Don't worry, we are with you every step of the way!"</p>
           </div>
 
-          <div className="features">
-            <div className="feature-item">
-              <h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
+              <h3 className="text-2xl text-[#fc2008] mb-2">
                 <FontAwesomeIcon icon={faShieldAlt} /> Crime Reporting
               </h3>
-              <p>Quickly report crimes in your area and provide necessary details to help authorities take action effectively.</p>
-              <button className="action-button">Click Here</button>
+              <p className="text-gray-400 mb-4">Quickly report crimes in your area and provide necessary details to help authorities take action effectively.</p>
+              <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
+                Click Here
+              </button>
             </div>
-            <div className="feature-item">
-              <h3>
+            <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
+              <h3 className="text-2xl text-[#fc2008] mb-2">
                 <FontAwesomeIcon icon={faSearch} /> Missing Reporting
               </h3>
-              <p>Report missing persons or items easily and help track them down faster.</p>
-              <button className="action-button">Click Here</button>
+              <p className="text-gray-400 mb-4">Report missing persons or items easily and help track them down faster.</p>
+              <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
+                Click Here
+              </button>
             </div>
-            <div className="feature-item">
-              <h3>
+            <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
+              <h3 className="text-2xl text-[#fc2008] mb-2">
                 <FontAwesomeIcon icon={faFolderOpen} /> Case Status
               </h3>
-              <p>Check the real-time status of your reported cases and stay informed about their progress.</p>
-              <button className="action-button">Click Here</button>
+              <p className="text-gray-400 mb-4">Check the real-time status of your reported cases and stay informed about their progress.</p>
+              <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
+                Click Here
+              </button>
             </div>
-            <div className="feature-item">
-              <h3>
-                <FontAwesomeIcon icon={faUser} /> Missing Person Finder
+            <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
+              <h3 className="text-2xl text-[#fc2008] mb-2">
+                <FontAwesomeIcon icon={faUser } /> Missing Person Finder
               </h3>
-              <p>Search for missing individuals using location-based filters and provided photos.</p>
-              <button className="action-button">Click Here</button>
+              <p className="text-gray-400 mb-4">Search for missing individuals using location-based filters and provided photos.</p>
+              <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
+                Click Here
+              </button>
             </div>
-            <div className="feature-item">
-              <h3>
+            <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
+              <h3 className="text-2xl text-[#fc2008] mb-2">
                 <FontAwesomeIcon icon={faAmbulance} /> Emergency Help
               </h3>
-              <p>Access emergency assistance in critical situations to ensure your safety and well-being.</p>
-              <button className="action-button">Click Here</button>
+              <p className="text-gray-400 mb-4">Access emergency assistance in critical situations to ensure your safety and well-being.</p>
+              <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
+                Click Here
+              </button>
             </div>
-            <div className="feature-item">
-              <h3>
+            <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
+              <h3 className="text-2xl text-[#fc2008] mb-2">
                 <FontAwesomeIcon icon={faMapMarkerAlt} /> Be Aware
               </h3>
-              <p>Enter your area and view the latest crime reports, ensuring you stay informed and vigilant.</p>
-              <button className="action-button">Click Here</button>
+              <p className="text-gray-400 mb-4">Enter your area and view the latest crime reports, ensuring you stay informed and vigilant.</p>
+              <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
+                Click Here
+              </button>
             </div>
           </div>
         </div>
