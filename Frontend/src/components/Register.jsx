@@ -21,8 +21,8 @@ const Register = () => {
     };
 
     const handleOtpSend = async (email, name) => {
-        const otp = generateOtp();
-        setGeneratedOtp(otp);
+        const Gotp = generateOtp();
+        setGeneratedOtp(Gotp);
 
         const emailContent = `
 Hi ${name},
@@ -30,7 +30,7 @@ Hi ${name},
 Thank you for registering with CMS.
 
 Your One-Time Password (OTP) for completing your registration is:
-${otp}
+${Gotp}
 
 Please enter this OTP within the next 10 minutes to verify your account.
 
@@ -57,225 +57,230 @@ The CMS Team
         await handleOtpSend(formdata.email, formdata.firstName);
     };
 
-    const onSubmit = async (data) => {
-        if (!isOtpSend) {
-            setFormData(data);
-            await handleOtpSend(data.email, data.firstName);
-        } else if (otp === generatedOtp) {
-            try {
-                await axios.post('http://localhost:8080/registerValidation', { ...data, role: 'user' });
-                await axios.post('http://localhost:8080/register', { ...data, role: 'user' });
-                showAlert('success', 'Registration successful!');
-            } catch (error) {
-                showAlert('error', error?.response?.data?.message);
-            }
-        } else {
-            showAlert('error', 'Invalid OTP. Please try again.');
+const onSubmit = async (data) => {
+    if (!isOtpSend) {
+        setFormData(data);
+        await handleOtpSend(data.email, data.firstName);
+    } else if (otp == generatedOtp) {
+        try {
+
+            await axios.post('http://localhost:8080/register', { ...data, role: 'user' });
+            showAlert('success', 'Registration successful!');
+        } catch (error) {
+            showAlert('error', error?.response?.data?.message);
         }
-    };
+    } else {
+        console.log(otp);
+        console.log(generateOtp);
 
-    return (
-        <>
-            <div className="flex justify-center bg-gray-900  ">
-                <div className="flex mt-[50px] bg-gray-950 shadow-lg  h-fit">
+
+        showAlert('error', 'Invalid OTP. Please try again.');
+    }
+}
+
+
+return (
+    <>
+        <div className="flex justify-center bg-gray-900  ">
+            <div className="flex mt-[50px] bg-gray-950 shadow-lg  h-fit">
                 <div className="flex-1 w-[750px] p-8 text-white">  {/* Adjusted width here */}
-                <h2 className="text-[#ff0000]   text-4xl mb-6 text-center">Register</h2>
-                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-                            {/* First row: First Name and Last Name */}
-                            <div className="flex gap-5">
-                                <div className="flex-1">
-                                    <label className=''>First Name:</label>
-                                    <input
-                                        type="text"
-                                        {...register('firstName', { required: 'First name is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
-                                </div>
-                                <div className="flex-1">
-                                    <label>Last Name:</label>
-                                    <input
-                                        type="text"
-                                        {...register('lastName', { required: 'Last name is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
-                                </div>
+                    <h2 className="text-[#ff0000]   text-4xl mb-6 text-center">Register</h2>
+                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+                        {/* First row: First Name and Last Name */}
+                        <div className="flex gap-5">
+                            <div className="flex-1">
+                                <label className=''>First Name:</label>
+                                <input
+                                    type="text"
+                                    {...register('firstName', { required: 'First name is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
                             </div>
-
-                            {/* Second row: Username and Email */}
-                            <div className="flex gap-5">
-                                <div className="flex-1">
-                                    <label>Username:</label>
-                                    <input
-                                        type="text"
-                                        {...register('username', { required: 'Username is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.username && <p className="text-red-500">{errors.username.message}</p>}
-                                </div>
-                                <div className="flex-1">
-                                    <label>Email:</label>
-                                    <input
-                                        type="email"
-                                        {...register('email', { required: 'Email is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-                                </div>
+                            <div className="flex-1">
+                                <label>Last Name:</label>
+                                <input
+                                    type="text"
+                                    {...register('lastName', { required: 'Last name is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
                             </div>
-
-                            {/* Third row: Phone and Adhar Number */}
-                            <div className="flex gap-5">
-                                <div className="flex-1">
-                                    <label>Phone:</label>
-                                    <input
-                                        type="text"
-                                        {...register('phone', { required: 'Phone number is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
-                                </div>
-                                <div className="flex-1">
-                                    <label>Adhar Number:</label>
-                                    <input
-                                        type="text"
-                                        {...register('AdharNumber', { required: 'Adhar number is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.AdharNumber && <p className="text-[#ff0000]">{errors.AdharNumber.message}</p>}
-                                </div>
-                            </div>
-
-                            {/* Fourth row: Street Address and City */}
-                            <div className="flex gap-5">
-                                <div className="flex-1">
-                                    <label>Street Address:</label>
-                                    <input
-                                        type="text"
-                                        {...register('address.street', { required: 'Street address is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.address?.street && <p className="text-red-500">{errors.address?.street.message}</p>}
-                                </div>
-                                <div className="flex-1">
-                                    <label>City:</label>
-                                    <input
-                                        type="text"
-                                        {...register('address.city', { required: 'City is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.address?.city && <p className="text-red-500">{errors.address?.city.message}</p>}
-                                </div>
-                            </div>
-
-                            {/* Fifth row: State and Postal Code */}
-                            <div className="flex gap-5">
-                                <div className="flex-1">
-                                    <label>State:</label>
-                                    <input
-                                        type="text"
-                                        {...register('address.state', { required: 'State is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.address?.state && <p className="text-red-500">{errors.address?.state.message}</p>}
-                                </div>
-                                <div className="flex-1">
-                                    <label>Postal Code:</label>
-                                    <input
-                                        type="text"
-                                        {...register('address.postalCode', { required: 'Postal code is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.address?.postalCode && <p className="text-red-500">{errors.address?.postalCode.message}</p>}
-                                </div>
-                            </div>
-
-                            {/* Sixth row: Country and Password */}
-                            <div className="flex gap-5">
-                                <div className="flex-1">
-                                    <label>Country:</label>
-                                    <input
-                                        type="text"
-                                        {...register('address.country', { required: 'Country is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.address?.country && <p className="text-red-500">{errors.address?.country.message}</p>}
-                                </div>
-                                <div className="flex-1">
-                                    <label>Password:</label>
-                                    <input
-                                        type="password"
-                                        {...register('passwordHash', { required: 'Password is required' })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-                                </div>
-                            </div>
-
- {/* Seventh row: Confirm Password and Gender */}
-                            <div className="flex gap-5">
-                                <div className="flex-1">
-                                    <label>Confirm Password:</label>
-                                    <input
-                                        type="password"
-                                        {...register('confirmPassword', {
-                                            required: 'Confirm password is required',
-                                            validate: (value) =>
-                                                value === watch('passwordHash') || 'Passwords do not match'
-                                        })}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
-                                </div>
-                                <div className="flex-1">
-                                    <label>Gender:</label>
-                                    <select {...register('gender')} className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            {isOtpSend && (
-                                <div className="flex flex-col">
-                                    <label htmlFor="otp">Enter Your OTP:</label>
-                                    <input
-                                        id='otp'
-                                        value={otp}
-                                        type='text'
-                                        onChange={(e) => setOtp(e.target.value)}
-                                        className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                    />
-                                    <a onClick={reSendOtp} className="text-blue-500 hover:underline cursor-pointer mt-2">Resend OTP?</a>
-                                </div>
-                            )}
-
-                            {/* Submit Button */}
-                            <div>
-                                <button type="submit" className="bg-[#ff0000] text-white p-2 rounded hover:bg-red-600 transition duration-200 ml-[40%]">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="bg-gray-900 p-8 flex flex-col items-center justify-center">
-                        <h1 className="text-[#ff0000] text-4xl mb-4"><i>Welcome To Crime Management System</i></h1>
-                        <img src={myphoto} alt="background" className="h-72 mb-4" />
-                        <h3 className="text-gray-300 text-lg mb-4"><i>"Every voice matters, every action counts. Register today and be a part of something greater."</i></h3>
-                        <div className='text-gray-300'>
-                            
                         </div>
+
+                        {/* Second row: Username and Email */}
+                        <div className="flex gap-5">
+                            <div className="flex-1">
+                                <label>Username:</label>
+                                <input
+                                    type="text"
+                                    {...register('username', { required: 'Username is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+                            </div>
+                            <div className="flex-1">
+                                <label>Email:</label>
+                                <input
+                                    type="email"
+                                    {...register('email', { required: 'Email is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                            </div>
+                        </div>
+
+                        {/* Third row: Phone and Adhar Number */}
+                        <div className="flex gap-5">
+                            <div className="flex-1">
+                                <label>Phone:</label>
+                                <input
+                                    type="text"
+                                    {...register('phone', { required: 'Phone number is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+                            </div>
+                            <div className="flex-1">
+                                <label>Adhar Number:</label>
+                                <input
+                                    type="text"
+                                    {...register('AdharNumber', { required: 'Adhar number is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.AdharNumber && <p className="text-[#ff0000]">{errors.AdharNumber.message}</p>}
+                            </div>
+                        </div>
+
+                        {/* Fourth row: Street Address and City */}
+                        <div className="flex gap-5">
+                            <div className="flex-1">
+                                <label>Street Address:</label>
+                                <input
+                                    type="text"
+                                    {...register('address.street', { required: 'Street address is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.address?.street && <p className="text-red-500">{errors.address?.street.message}</p>}
+                            </div>
+                            <div className="flex-1">
+                                <label>City:</label>
+                                <input
+                                    type="text"
+                                    {...register('address.city', { required: 'City is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.address?.city && <p className="text-red-500">{errors.address?.city.message}</p>}
+                            </div>
+                        </div>
+
+                        {/* Fifth row: State and Postal Code */}
+                        <div className="flex gap-5">
+                            <div className="flex-1">
+                                <label>State:</label>
+                                <input
+                                    type="text"
+                                    {...register('address.state', { required: 'State is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.address?.state && <p className="text-red-500">{errors.address?.state.message}</p>}
+                            </div>
+                            <div className="flex-1">
+                                <label>Postal Code:</label>
+                                <input
+                                    type="text"
+                                    {...register('address.postalCode', { required: 'Postal code is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.address?.postalCode && <p className="text-red-500">{errors.address?.postalCode.message}</p>}
+                            </div>
+                        </div>
+
+                        {/* Sixth row: Country and Password */}
+                        <div className="flex gap-5">
+                            <div className="flex-1">
+                                <label>Country:</label>
+                                <input
+                                    type="text"
+                                    {...register('address.country', { required: 'Country is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.address?.country && <p className="text-red-500">{errors.address?.country.message}</p>}
+                            </div>
+                            <div className="flex-1">
+                                <label>Password:</label>
+                                <input
+                                    type="password"
+                                    {...register('passwordHash', { required: 'Password is required' })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                            </div>
+                        </div>
+
+                        {/* Seventh row: Confirm Password and Gender */}
+                        <div className="flex gap-5">
+                            <div className="flex-1">
+                                <label>Confirm Password:</label>
+                                <input
+                                    type="password"
+                                    {...register('confirmPassword', {
+                                        required: 'Confirm password is required',
+                                        validate: (value) =>
+                                            value === watch('passwordHash') || 'Passwords do not match'
+                                    })}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
+                            </div>
+                            <div className="flex-1">
+                                <label>Gender:</label>
+                                <select {...register('gender')} className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {isOtpSend && (
+                            <div className="flex flex-col">
+                                <label htmlFor="otp">Enter Your OTP:</label>
+                                <input
+                                    id='otp'
+                                    value={otp}
+                                    type='text'
+                                    onChange={(e) => setOtp(e.target.value)}
+                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+                                />
+                                <a onClick={reSendOtp} className="text-blue-500 hover:underline cursor-pointer mt-2">Resend OTP?</a>
+                            </div>
+                        )}
+
+                        {/* Submit Button */}
+                        <div>
+                            <button type="submit" className="bg-[#ff0000] text-white p-2 rounded hover:bg-red-600 transition duration-200 ml-[40%]">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div className="bg-gray-900 p-8 flex flex-col items-center justify-center">
+                    <h1 className="text-[#ff0000] text-4xl mb-4"><i>Welcome To Crime Management System</i></h1>
+                    <img src={myphoto} alt="background" className="h-72 mb-4" />
+                    <h3 className="text-gray-300 text-lg mb-4"><i>"Every voice matters, every action counts. Register today and be a part of something greater."</i></h3>
+                    <div className='text-gray-300'>
+
                     </div>
                 </div>
-
-                {alert?.message && (
-                    <div className={`absolute top-2 right-2 max-w-xs z-50 p-4 rounded ${alert?.type === 'success' ? 'bg-green-500' : 'bg-red-600'}`}>
-                        <p className="text-white">{alert.message}</p>
-                    </div>
-                )}
             </div>
-        </>
-    );
-};
+
+            {alert?.message && (
+                <div className={`absolute top-2 right-2 max-w-xs z-50 p-4 rounded ${alert?.type === 'success' ? 'bg-green-500' : 'bg-red-600'}`}>
+                    <p className="text-white">{alert.message}</p>
+                </div>
+            )}
+        </div>
+    </>
+);
+    };
 
 export default memo(Register);
