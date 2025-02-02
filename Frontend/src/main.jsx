@@ -5,7 +5,7 @@ import NavBar from './components/NavBar.jsx'
 import Home from './components/Home.jsx'
 import Footer from './components/Footer.jsx'
 import Register from './components/Register.jsx'
-// import Login from './components/Login.jsx'
+import Login from './components/Login.jsx'
 import {BrowserRouter,createBrowserRouter,RouterProvider} from 'react-router-dom'
 
 
@@ -21,13 +21,13 @@ const Router=createBrowserRouter([
   
   },
 
-  //After Adding the login page Add the path and elememt
+  // After Adding the login page Add the path and elememt
 
-//   {
-//     // path:'/login',
-//     // element:<div><Login/></div>
+  {
+    path:'/login',
+    element:<div><NavBar /> <Login /> <Footer /></div>
   
-//   },
+  },
   ])
 
 
