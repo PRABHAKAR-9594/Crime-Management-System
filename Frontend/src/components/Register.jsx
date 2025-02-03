@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form';
 import myphoto from '../assets/lock.png';
 import { memo } from 'react';
 import axios from 'axios';
-
+import {useNavigate} from 'react-router-dom';
 
 const Register = () => {
+    const Nevigate=useNavigate()
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const [alert, setAlert] = useState({ type: '', message: '' });
     const [isOtpSend, setIsOtpSend] = useState(false);
@@ -66,6 +67,9 @@ const onSubmit = async (data) => {
 
             await axios.post('http://localhost:8080/register', { ...data, role: 'user' });
             showAlert('success', 'Registration successful!');
+            setTimeout(()=>{
+                    Nevigate('/login')
+            },4000)
         } catch (error) {
             showAlert('error', error?.response?.data?.message);
         }

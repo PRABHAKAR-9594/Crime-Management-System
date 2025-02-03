@@ -1,14 +1,33 @@
 import React, { useState } from "react";
 import prisonImage from "../../src/assets/lock.png"; // Add the correct path for the prison image
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 const HomePage = () => {
     const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+   const [alert, setAlert] = useState({ type: '', message: '' });
 
-  const handleLogin = (e) => {
+  const showAlert = (type, message) => {
+    setAlert({ type, message });
+    setTimeout(() => setAlert({ type: '', message: '' }), 5000);
+};
+  const handleLogin = async(e) => {
     e.preventDefault();
+try{
+const Response=await axios.post('http://localhost:8080/login',{username:username,passwordHash:password})
+console.log(Response.data);
+showAlert('success', 'Login Successfully !');
+setTimeout(()=>{
+  navigate('/')
+},4000)
+}
+catch(error){
+  console.log(error?.response?.data?.message);
+    console.log(error);
+    showAlert('error', error?.response?.data?.message);
+    
+}
     console.log("Logging in with:", email, password);
   };
 
@@ -26,19 +45,25 @@ const HomePage = () => {
 
   return (
     <>
-      <div className=" bg-black flex items-center justify-center relative top-16 space-y-20">
-        {/* Dark Overlay */}
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-0"></div>
+     <div className="bg-[#010000]  h-[700px] flex items-center justify-center relative top-16 space-y-20 mb-[64px]" >
+  {/* Dark Overlay */}
+  <div className="absolute top-0 left-0 w-full h-full bg-[#0b0909] opacity-80 z-0"></div>
 
-        <div className="flex w-full max-w-6xl bg-black rounded-lg shadow-2xl z-10 overflow-hidden space-x-10"> {/* Increased space between sections */}
-          {/* Left Section - Circle Image */}
-          <div className="w-1/2 flex justify-center items-center">
-            <img
-              src={prisonImage}
-              alt="Prison"
-              className="w-48 h-48 rounded-full object-cover border-4 border-red-600" // Circle image
-            />
-          </div>
+  <div className="flex w-full max-w-6xl bg-[#131313] rounded-lg shadow-2xl z-10 overflow-hidden space-x-10"> 
+    {/* Left Section - Circle Image */}
+    <div className="w-1/2 flex flex-col justify-center items-center text-center space-y-4">
+      <img
+        src={prisonImage}
+        alt="Prison"
+        className="w-48 h-48 rounded-full object-cover border-4 border-red-600" // Circle image
+      />
+      <p className="text-white text-lg font-semibold">
+        "Speak up for justice, take a stand against crime—because change begins with action."
+      </p>
+    </div>
+ 
+
+          
 
           {/* Right Section - Login Form */}
           <div className="w-1/2 bg-black p-8 flex flex-col justify-center space-y-6">
@@ -52,19 +77,19 @@ const HomePage = () => {
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Email Field */}
               <div>
-                <label className="block text-white font-medium">Email</label>
+                <label className="block text-white font-medium">UserName :</label>
                 <input
-                  type="email"
+                  type="text"
                   className="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
 
               {/* Password Field */}
               <div>
-                <label className="block text-white font-medium">Password</label>
+                <label className="block text-white font-medium">Password :</label>
                 <input
                   type="password"
                   className="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
@@ -106,7 +131,15 @@ const HomePage = () => {
            
           </div>
         </div>
+        
+       
       </div>
+      {alert?.message && (
+                <div className={`absolute top-2 right-2 max-w-xs z-50 p-4 rounded ${alert?.type === 'success' ? 'bg-green-500' : 'bg-red-600'}`}>
+                    <p className="text-white">{alert.message}</p>
+                </div>
+            )}
+       
     </>
   );
 };

@@ -6,6 +6,7 @@ import Home from './components/Home.jsx'
 import Footer from './components/Footer.jsx'
 import Register from './components/Register.jsx'
 import Login from './components/Login.jsx'
+import PageNotFound from './components/PageNotFound.jsx'
 import {BrowserRouter,createBrowserRouter,RouterProvider} from 'react-router-dom'
 
 
@@ -28,6 +29,10 @@ const Router=createBrowserRouter([
     element:<div><NavBar /> <Login /> <Footer /></div>
   
   },
+  {
+    path:'*',
+    element:<div><PageNotFound></PageNotFound></div>
+  }
   ])
 
 
