@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import prisonImage from "../../src/assets/lock.png"; // Add the correct path for the prison image
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { use } from "react";
 const HomePage = () => {
     const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
    const [alert, setAlert] = useState({ type: '', message: '' });
 
+
+  
   const showAlert = (type, message) => {
     setAlert({ type, message });
     setTimeout(() => setAlert({ type: '', message: '' }), 5000);
@@ -18,6 +21,8 @@ try{
 const Response=await axios.post('http://localhost:8080/login',{username:username,passwordHash:password})
 console.log(Response.data);
 showAlert('success', 'Login Successfully !');
+sessionStorage.setItem('AccessToken',Response.data.AccessToken);
+sessionStorage.setItem('UserName',Response.data.Name);
 setTimeout(()=>{
   navigate('/')
 },4000)

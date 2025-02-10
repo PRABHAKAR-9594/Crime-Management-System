@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaHome, FaInfoCircle, FaUserCircle, FaSignOutAlt, FaBars } from "react-icons/fa";
 import { IoIosLogIn } from "react-icons/io";
 import { RiProgress3Fill } from "react-icons/ri";
-
+import { Link } from 'react-router-dom';
 export default function NavBar() {
-  const [user, setUser ] = useState(true);
+  const [user, setUser] = useState('');
+  let AccessToken = sessionStorage.getItem('AccessToken')
+  console.log(AccessToken);
+  let uname = sessionStorage.getItem('UserName')
+  useEffect(()=>{
+ if(uname!=null){
+  setUser(uname)
+  console.log(uname);
+  
+ }},[uname]
+  )
+function handlelogout(){
+  sessionStorage.clear()
+  setUser('')
+}
+
 
   return (
     <div>
@@ -16,34 +31,35 @@ export default function NavBar() {
         </ label>
         <ul className="hidden md:flex space-x-5">
           <li>
-            <a href="#" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+            <Link to="#" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <FaHome className="mr-2" /> Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#about" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+            <Link to="#about" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <FaInfoCircle className="mr-2" /> About
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#profile" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
-              <FaUserCircle  className="mr-2" /> Profile
-            </a>
+            <Link to="/profile" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+              <FaUserCircle className="mr-2" /> Profile
+            </Link>
           </li>
           <li>
-            <a href="#Status" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+            <Link to="#Status" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <RiProgress3Fill className="mr-2" /> Status
-            </a>
+            </Link>
           </li>
           <li>
-            {user ? (
-              <a href="#logout" className="flex items-center text-[#ff0000] hover:text-white transition-colors">
-                <FaSignOutAlt className="mr-2" /> Logout
-              </a>
-            ) : (
-              <a href="#Login" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+            {user =='' ? (
+              <Link to="/login" className="flex items-center text-[#ff0000] hover:text-white transition-colors">
                 <IoIosLogIn className="mr-2" /> Login
-              </a>
+              </Link>
+            ) : (
+              <Link onClick={handlelogout} className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+                
+                <FaSignOutAlt className="mr-2" /> Logout
+              </Link>
             )}
           </li>
         </ul>
@@ -60,7 +76,7 @@ export default function NavBar() {
           </li>
           <li className="text-center my-2">
             <a href="#profile" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
-              <FaUserCircle  className="mr-2" /> Profile
+              <FaUserCircle className="mr-2" /> Profile
             </a>
           </li>
           <li className="text-center my-2">
@@ -75,7 +91,7 @@ export default function NavBar() {
               </a>
             ) : (
               <a href="#Login" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
-                <IoIosLogIn className="mr-2" /> Login 
+                <IoIosLogIn className="mr-2" /> Login
               </a>
             )}
           </li>
