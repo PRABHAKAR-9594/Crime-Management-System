@@ -9,7 +9,7 @@ import Login from './components/Login.jsx'
 import PageNotFound from './components/PageNotFound.jsx'
 import {BrowserRouter,createBrowserRouter,RouterProvider} from 'react-router-dom'
 import Profile from './components/Profile.jsx'
-
+import CrimeReportForm from './components/CrimeReportForm.jsx'
 
 const Router=createBrowserRouter([
   {
@@ -33,6 +33,11 @@ const Router=createBrowserRouter([
   {
     path:'/profile',
     element:<div><NavBar /> <Profile></Profile> <Footer /></div>
+  
+  },
+  {
+    path:'/CrimeReportingForm',
+    element:<div><NavBar /> <CrimeReportForm></CrimeReportForm> <Footer /></div>
   
   },
   {
