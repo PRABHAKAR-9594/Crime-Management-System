@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import prisonImage from "../../src/assets/lock.png"; // Add the correct path for the prison image
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { use } from "react";
+import { jwtDecode } from "jwt-decode"; 
 const HomePage = () => {
     const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -21,10 +21,21 @@ try{
 const Response=await axios.post('http://localhost:8080/login',{username:username,passwordHash:password})
 console.log(Response.data);
 showAlert('success', 'Login Successfully !');
-sessionStorage.setItem('AccessToken',Response.data.AccessToken);
-sessionStorage.setItem('UserName',Response.data.Name);
+const decoded = jwtDecode(Response.data.AccessToken);
+console.log(decoded);
+sessionStorage.setItem('UserName',decoded.username);
+sessionStorage.setItem('Role',decoded.role);
+sessionStorage.setItem('Token',Response.data.AccessToken);
 setTimeout(()=>{
+  const role =sessionStorage.getItem('Role')
+  console.log();
+  
+ if (role === 'user') {
   navigate('/')
+  }else{
+    navigate('/')
+  }
+ 
 },4000)
 }
 catch(error){
@@ -33,7 +44,7 @@ catch(error){
     showAlert('error', error?.response?.data?.message);
     
 }
-    console.log("Logging in with:", email, password);
+  
   };
 
   const handleRegister = () => {

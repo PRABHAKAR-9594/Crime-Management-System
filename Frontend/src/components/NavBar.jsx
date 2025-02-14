@@ -31,7 +31,7 @@ function handlelogout(){
         </ label>
         <ul className="hidden md:flex space-x-5">
           <li>
-            <Link to="#" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+            <Link to="/" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <FaHome className="mr-2" /> Home
             </Link>
           </li>
