@@ -95,6 +95,27 @@ const handleSave = async () => {
     }
   });
 
+  const Subject='Profile Updated Successfully - Crime Management System'
+  const ProfileMessage=`
+ Dear ${user.firstName},
+
+Your profile has been successfully updated in the Crime Management System.
+
+"Small changes can make a big difference."
+
+If you didn’t make this change, please contact us immediately at [departmentofcrime4049@gmail.com].
+
+Stay secure, stay aware.
+
+Best regards,
+Crime Management System Team`
+
+  await axios.post('http://localhost:8080/sendGmail', {
+    gmail: user.email,
+    text: ProfileMessage,
+    Subject:Subject,
+  });
+
     if (response?.data?.message) {
       showAlert('success', response.data.message);
     } else {
@@ -186,15 +207,7 @@ return (
         <div className="mt-4 w-full">
           {isEditing ? (
             <>
-              <label className="mt-2 text-gray-700">Gmail</label>
-              <input
-                className="mt-1 w-full p-2 border rounded bg-gray-200 text-gray-900"
-                type="email"
-                name="email"
-                value={user.email}
-                onChange={handleChange}
-              />
-              {error.email && <p className="text-red-500 text-sm">{error.email}</p>}
+             
 
               <label className="mt-2 text-gray-700">Phone</label>
               <input

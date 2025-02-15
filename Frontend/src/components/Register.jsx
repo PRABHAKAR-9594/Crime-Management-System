@@ -41,6 +41,10 @@ Best regards,
 The CMS Team
         `;
 
+
+
+
+
         try {
             await axios.post('http://localhost:8080/sendGmail', {
                 gmail: email,
@@ -53,6 +57,7 @@ The CMS Team
             showAlert('error', 'Failed to send OTP. Try again later.');
         }
     };
+    
 
     const reSendOtp = async () => {
         await handleOtpSend(formdata.email, formdata.firstName);
@@ -67,7 +72,28 @@ const onSubmit = async (data) => {
 
             await axios.post('http://localhost:8080/register', { ...data, role: 'user' });
             showAlert('success', 'Registration successful!');
-            setTimeout(()=>{
+
+
+const Subject='Registration Successful - Welcome to Crime Management System'
+const RegestrationMessage=`Dear ${data.firstName},
+
+Your account has been successfully registered with the Crime Management System.
+
+"A secure society is built on awareness and action."
+
+If you need any assistance, feel free to contact us at [departmentofcrime4049@gmail.com].
+
+Your safety, our priority.
+
+Best regards,
+Crime Management System Team`
+
+            setTimeout( async()=>{
+                await axios.post('http://localhost:8080/sendGmail', {
+                    gmail: data.email,
+                    text: RegestrationMessage,
+                    Subject: Subject,
+                });
                     Nevigate('/login')
             },4000)
         } catch (error) {

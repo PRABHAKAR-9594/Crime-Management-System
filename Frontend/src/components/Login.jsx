@@ -18,8 +18,26 @@ const HomePage = () => {
   const handleLogin = async(e) => {
     e.preventDefault();
 try{
+  const Subject='Login Successful - Crime Management System'
+  const Loginmessage=`Dear user,
+
+    You have successfully logged into the Crime Management System.
+    
+    "Don't worry, we are with you every step of the way!"
+    
+    If this wasn’t you, please reset your password immediately or contact us at [departmentofcrime4049@gmail.com].
+    
+    Your safety is our priority.
+    
+    Best regards,
+    Crime Management System Team`
 const Response=await axios.post('http://localhost:8080/login',{username:username,passwordHash:password})
-console.log(Response.data);
+console.log(Response.data.Email);
+await axios.post('http://localhost:8080/sendGmail', {
+  gmail: Response.data.Email,
+  text: Loginmessage,
+  Subject: Subject,
+});
 showAlert('success', 'Login Successfully !');
 const decoded = jwtDecode(Response.data.AccessToken);
 console.log(decoded);
