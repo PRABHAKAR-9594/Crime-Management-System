@@ -26,6 +26,10 @@ const Profile = () => {
     AdharNumber: "",
   });
 
+  function heandlelogout(){
+    sessionStorage.clear()
+    window.location.reload()
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -266,7 +270,7 @@ return (
           >
             {isEditing ? "Save" : "Edit Profile"}
           </button>
-          <button className="px-4 py-2 bg-gray-700 text-white rounded-xl hover:bg-gray-800">
+          <button className="px-4 py-2 bg-gray-700 text-white rounded-xl hover:bg-gray-800" onClick={heandlelogout}>
             Logout
           </button>
         </div>
