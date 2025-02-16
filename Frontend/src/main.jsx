@@ -10,7 +10,7 @@ import PageNotFound from './components/PageNotFound.jsx'
 import {BrowserRouter,createBrowserRouter,RouterProvider} from 'react-router-dom'
 import Profile from './components/Profile.jsx'
 import CrimeReportForm from './components/CrimeReportForm.jsx'
-
+import Test from './components/Test.jsx'
 const Router=createBrowserRouter([
   {
     path:'/',
@@ -38,6 +38,11 @@ const Router=createBrowserRouter([
   {
     path:'/CrimeReportingForm',
     element:<div><NavBar /> <CrimeReportForm></CrimeReportForm> <Footer /></div>
+  
+  },
+  {
+    path:'/test',
+    element:<div><Test></Test></div>
   
   },
   {

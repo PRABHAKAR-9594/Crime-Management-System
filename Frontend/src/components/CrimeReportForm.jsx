@@ -57,109 +57,98 @@ const CrimeReportForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded shadow-md">
-            <h1 className="text-2xl font-bold mb-4">Crime Reporting Form</h1>
+        <div className="flex flex-col md:flex-row max-w-full h-screen bg-black">
+            <form onSubmit={handleSubmit} className="w-full md:w-1/2 p-6 bg-black text-white rounded shadow-md overflow-auto">
+                <h1 className="text-3xl font-bold mb-4 text-red-500">Crime Reporting Form</h1>
 
-            <label className="block mb-2">
-                Username:
-                <input type="text" name="username" value={formData.username} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label className="block mb-2">
+                        Username:
+                        <input type="text" name="username" value={formData.username} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
 
-            <label className="block mb-2">
-                Crime Type:
-                <input type="text" name="crimetype" value={formData.crimetype} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                    <label className="block mb-2">
+                        Crime Type:
+                        <input type="text" name="crimetype" value={formData.crimetype} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
 
-            <label className="block mb-2">
-                Description:
-                <textarea name="description" value={formData.description} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                    <label className="block mb-2 col-span-2">
+                        Description:
+                        <textarea name="description" value={formData.description} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
 
-            <label className="block mb-2">
-                Incident Date:
-                <input type="date" name="incidentDate" value={formData.incidentDate} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                    <label className="block mb-2">
+                        Incident Date:
+                        <input type="date" name="incidentDate" value={formData.incidentDate} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
 
-            <label className="block mb-2">
-                Incident Time:
-                <input type="time" name="incidentTime" value={formData.incidentTime} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                    <label className="block mb-2">
+                        Incident Time:
+                        <input type="time" name="incidentTime" value={formData.incidentTime} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
+                </div>
 
-            <h2 className="text-lg font-semibold mt-4">Incident Location</h2>
-            <label className="block mb-2">
-                Address:
-                <input type="text" name="incidentLocation.address" value={formData.incidentLocation.address} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                <h2 className="text-lg font-semibold mt-4">Incident Location</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label className="block mb-2">
+                        Address:
+                        <input type="text" name="incidentLocation.address" value={formData.incidentLocation.address} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
 
-            <label className="block mb-2">
-                City:
-                <input type="text" name="incidentLocation.city" value={formData.incidentLocation.city} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                    <label className="block mb-2">
+                        City:
+                        <input type="text" name="incidentLocation.city" value={formData.incidentLocation.city} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
 
-            <label className="block mb-2">
-                State:
-                <input type="text" name="incidentLocation.state" value={formData.incidentLocation.state} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                    <label className="block mb-2">
+                        State:
+                        <input type="text" name="incidentLocation.state" value={formData.incidentLocation.state} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
 
-            <label className="block mb-2">
-                Pincode:
-                <input type="text" name="incidentLocation.pincode" value={formData.incidentLocation.pincode} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" required />
-            </label>
+                    <label className="block mb-2">
+                        Pincode:
+                        <input type="text" name="incidentLocation.pincode" value={formData.incidentLocation.pincode} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
+                    </label>
+                </div>
 
-            <h2 className="text-lg font-semibold mt-4">Evidence</h2>
-            <label className="block mb-2">
-                Image File:
-                <input type="file" name="evidence.imageFile" value={formData.evidence.imageFile} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
+                <h2 className="text-lg font-semibold mt-4">Evidence</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label className="block mb-2">
+                        Image File:
+                        <input type="file" name="evidence.imageFile" onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" />
+                    </label>
 
-            <label className="block mb-2">
-                Video File:
-                <input type="file" name="evidence.videoFile" value={formData.evidence.videoFile} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
+                    <label className="block mb-2">
+                        Video File:
+                        <input type="file" name="evidence.videoFile" onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" />
+                    </label>
+                </div>
 
-            <h2 className="text-lg font-semibold mt-4">Suspect Details</h2>
-            <label className="block mb-2">
-                Name:
-                <input type="text" name="suspectDetails.name" value={formData.suspectDetails.name} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
+                <h2 className="text-lg font-semibold mt-4">Suspect Details</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label className="block mb-2">
+                        Name:
+                        <input type="text" name="suspectDetails.name" value={formData.suspectDetails.name} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" />
+                    </label>
 
-            <label className="block mb-2">
-                Description:
-                <textarea name="suspectDetails.description" value={formData.suspectDetails.description} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
+                    <label className="block mb-2 col-span-2">
+                        Description:
+                        <textarea name="suspectDetails.description" value={formData.suspectDetails.description} onChange={handleChange} className="mt-1 block w-full border border-red-500 rounded p-2 bg-gray-800 text-white" />
+                    </label>
 
-            <label className="block mb-2">
-                Acknowledge Number:
-                <input type="text" name="acknowledgeNumber" value={formData.acknowledgeNumber} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
+                   
+                </div>
 
-            <label className="block mb-2">
-                Status:
-                <select name="status" value={formData.status} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2">
-                    <option value="Open">Open</option>
-                    <option value="Under investigation">Under investigation</option>
-                    <option value="Closed">Closed</option>
-                </select>
-            </label>
+                <button type="submit" className="mt-4 bg-red-500 text-white rounded p-2 hover:bg-red-600">Submit</button>
+            </form>
 
-            <h2 className="text-lg font-semibold mt-4">Assigned Officer</h2>
-            <label className="block mb-2">
-                Username:
-                <input type="text" name="assignedOfficer.UserName" value={formData.assignedOfficer.UserName} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
-
-            <label className="block mb-2">
-                Name:
-                <input type="text" name="assignedOfficer.Name" value={formData.assignedOfficer.Name} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
-
-            <label className="block mb-2">
-                Contact:
-                <input type="text" name="assignedOfficer.contact" value={formData.assignedOfficer.contact} onChange={handleChange} className="mt-1 block w-full border border-gray-300 rounded p-2" />
-            </label>
-
-            <button type="submit" className="mt-4 bg-blue-500 text-white rounded p-2">Submit</button>
-        </form>
+            <div className="w-full md:w-1/2 p-6 bg-black text-red-500 flex flex-col items-center justify-center">
+                <h1 className="text-3xl font-bold mb-4">Crime Registration Form</h1>
+                <blockquote className="text-center text-lg italic text-white">
+                    "Justice delayed is justice denied."
+                </blockquote>
+            </div>
+        </div>
     );
 };
 

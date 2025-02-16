@@ -7,6 +7,7 @@ import { LoginRoute } from '../Routes/Login.route.js';
 import { crimeRegFormRoute } from '../Routes/crimeRegForm.route.js';
 import { GmailApi_Route } from '../Routes/Gmail.route.js';
 import { ProfileRoute } from '../Routes/Profile.route.js';
+import { TestRoute } from '../Routes/Test.js';
 dotenv.config();
 
 
@@ -24,7 +25,7 @@ Reg_route(app)
 crimeRegFormRoute(app)
 GmailApi_Route(app)
 ProfileRoute(app)
-
+TestRoute(app)
 
 
 
