@@ -36,7 +36,7 @@ function handlelogout(){
             </Link>
           </li>
           <li>
-            <Link to="#about" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+            <Link to="/aboutpage" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <FaInfoCircle className="mr-2" /> About
             </Link>
           </li>
