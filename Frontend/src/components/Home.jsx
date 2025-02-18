@@ -1,5 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {Link} from 'react-router-dom';
 import {
   faShieldAlt,
   faSearch,
@@ -25,10 +26,13 @@ export default function Home() {
               <h3 className="text-2xl text-[#fc2008] mb-2">
                 <FontAwesomeIcon icon={faShieldAlt} /> Crime Reporting
               </h3>
+              
               <p className="text-gray-400 mb-4">Quickly report crimes in your area and provide necessary details to help authorities take action effectively.</p>
+              <Link to="/CrimeReportingForm">
               <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
                 Click Here
               </button>
+              </Link>
             </div>
             <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
               <h3 className="text-2xl text-[#fc2008] mb-2">
