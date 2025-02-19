@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 const CrimeReportForm = () => {
+const Username=sessionStorage.getItem('Username')
+const nevigate=useNavigate()
+     useEffect(()=>{
+        if (!Username) {
+          nevigate('/login')
+        }
+      },[Username]);
+
+
+    const Name=sessionStorage.getItem('Name')
+    const Email=sessionStorage.getItem('Email')
+    const [alert, setAlert] = useState({ type: '', message: '' });
+    const showAlert = (type, message) => {
+        setAlert({ type, message });
+        setTimeout(() => setAlert({ type: '', message: '' }), 5000);
+    };
     const [formData, setFormData] = useState({
         username: '',
         crimetype: '',
@@ -151,6 +167,33 @@ const generateAcknowledgementNumber = () => {
     }));
         console.log(formData);
         try {
+            const Subject=`Crime Report Submission Successful – Acknowledgment No. ${ackNumber}`
+            const Message=`
+Dear ${Name},
+
+We have successfully received your crime report. Your acknowledgment number is ${ackNumber}. Please keep this number for future reference.
+
+Current Status: Your report is under initial review and is currently waiting for officer assignment. Our team is actively processing your case, and you will be notified once an officer is assigned.
+
+You can also track the progress of your report anytime by visiting our website and checking the Status Section
+
+We understand that this may be a difficult time for you, but please remember that you are not alone. We are with you, and our dedicated team is working to address your case with care and urgency.
+
+If you have any urgent concerns or additional details to share, please do not hesitate to contact us at departmentofcrime4049@gmail.com or 100 .
+
+Stay strong, and rest assured that we are here for you.
+
+Best regards,
+Crime Reporting System Team
+
+
+
+`
+
+
+
+
+
             const response = await axios.post('http://localhost:8080/CrimeRegForm ', formData, {
                 headers: { 
                     'Content-Type': 'application/json', 
@@ -159,8 +202,16 @@ const generateAcknowledgementNumber = () => {
         
             });
 
+            await axios.post('http://localhost:8080/sendGmail', {
+                gmail:Email,
+                text: Message,
+                Subject: Subject,
+              });
+              showAlert('success', 'Crime Form Submitted Successful!');
+
             console.log('Success:', response.data);
         } catch (error) {
+            showAlert('error', error?.response?.data?.message);
             console.error('Error submitting form:', error);
         }
     };
@@ -380,8 +431,15 @@ const generateAcknowledgementNumber = () => {
                 </div>
 
                 <button type="submit" className="mt-4 bg-red-500 text-white rounded p-2 hover:bg-red-600">Submit</button>
+                {alert?.message && (
+                <div className={`absolute top-2 right-2 max-w-xs z-50 p-4 rounded ${alert?.type === 'success' ? 'bg-green-500' : 'bg-red-600'}`}>
+                    <p className="text-white">{alert.message}</p>
+                </div>
+            )}
             </form>
+           
         </div>
+        
     );
 };
 

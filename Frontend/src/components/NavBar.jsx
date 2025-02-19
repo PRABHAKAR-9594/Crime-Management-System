@@ -24,7 +24,9 @@ function handlelogout(){
   return (
     <div>
       <nav className="flex justify-between items-center p-4 bg-black text-white fixed w-[100%]">
+        <Link to='/'>
         <div className="text-2xl  font-bold text-[#ff0000]">Crime Management System</div>
+        </Link>
         <input type="checkbox" id="toggle" className="hidden" />
         <label htmlFor="toggle" className="block md:hidden text-2xl cursor-pointer">
           <FaBars />
@@ -46,7 +48,7 @@ function handlelogout(){
             </Link>
           </li>
           <li>
-            <Link to="#Status" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+            <Link to="/Status" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <RiProgress3Fill className="mr-2" /> Status
             </Link>
           </li>

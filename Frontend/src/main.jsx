@@ -13,7 +13,9 @@ import CrimeReportForm from './components/CrimeReportForm.jsx';
 import Test from './components/Test.jsx';
 import AboutPage from './components/AboutPage.jsx';
 import ChatbotPage from './components/Chatbotpage.jsx';
-
+import StatusPage from './components/StatusPage.jsx';
+import ChatAgent from './components/ChatAgent.jsx';
+import BeAwarePage from './components/BeAwarePage.jsx';
 // Router setup
 const Router = createBrowserRouter([
   {
@@ -46,7 +48,15 @@ const Router = createBrowserRouter([
   },
   {
     path: '/chat',
-    element: <div><NavBar /> <ChatbotPage /> <Footer /></div>
+    element: <div><NavBar /> <ChatAgent/> <Footer /></div>
+  },
+  {
+    path: '/status',
+    element: <div><NavBar /> <StatusPage/> <Footer /></div>
+  },
+  {
+    path: '/beaware',
+    element: <div><NavBar /> <BeAwarePage/> <Footer /></div>
   },
   {
     path: '*',

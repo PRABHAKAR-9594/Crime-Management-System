@@ -3,13 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Profile = () => {
   const Username = sessionStorage.getItem('UserName')
-  const negative = useNavigate()
+  const nevigate = useNavigate()
   const Token = sessionStorage.getItem('Token')
   useEffect(()=>{
-    if (!Username) {
-      negative('/login')
-    }
-  });
+         if (!Username) {
+           nevigate('/login')
+         }
+       },[Username]);
   
   console.log("The UserName is ", Username);
 

@@ -32,7 +32,9 @@ try{
     Best regards,
     Crime Management System Team`
 const Response=await axios.post('http://localhost:8080/login',{username:username,passwordHash:password})
-console.log(Response.data.Email);
+console.log(Response);
+sessionStorage.setItem('Name',Response.data.Name)
+sessionStorage.setItem('Email',Response.data.Email)
 await axios.post('http://localhost:8080/sendGmail', {
   gmail: Response.data.Email,
   text: Loginmessage,

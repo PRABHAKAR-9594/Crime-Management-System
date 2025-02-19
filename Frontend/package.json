@@ -12,6 +12,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@shadcn/ui": "^0.0.4",
     "axios": "^1.7.9",
     "axois": "^0.0.1-security",
     "firebase": "^11.3.0",

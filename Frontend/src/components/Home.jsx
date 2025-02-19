@@ -48,9 +48,11 @@ export default function Home() {
                 <FontAwesomeIcon icon={faFolderOpen} /> Case Status
               </h3>
               <p className="text-gray-400 mb-4">Check the real-time status of your reported cases and stay informed about their progress.</p>
+              <Link to='/Status'>
               <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
                 Click Here
               </button>
+              </Link>
             </div>
             <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
               <h3 className="text-2xl text-[#fc2008] mb-2">
@@ -66,9 +68,11 @@ export default function Home() {
                 <FontAwesomeIcon icon={faAmbulance} /> Emergency Help
               </h3>
               <p className="text-gray-400 mb-4">Access emergency assistance in critical situations to ensure your safety and well-being.</p>
+              <Link to='/chat'>
               <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
                 Click Here
               </button>
+              </Link>
             </div>
             <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
               <h3 className="text-2xl text-[#fc2008] mb-2">
