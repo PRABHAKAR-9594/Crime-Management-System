@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CrimeReportForm = () => {
-const Username=sessionStorage.getItem('Username')
+const Username=sessionStorage.getItem('UserName')
 const nevigate=useNavigate()
      useEffect(()=>{
         if (!Username) {
