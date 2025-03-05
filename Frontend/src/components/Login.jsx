@@ -46,6 +46,7 @@ console.log(decoded);
 sessionStorage.setItem('UserName',decoded.username);
 sessionStorage.setItem('Role',decoded.role);
 sessionStorage.setItem('Token',Response.data.AccessToken);
+sessionStorage.setItem('Pincode',Response.data.Pincode)
 setTimeout(()=>{
   const role =sessionStorage.getItem('Role')
   console.log();

@@ -34,7 +34,9 @@ export const Login = async (req, res) => {
             AccessToken: token,
             Name: user.firstName,
             Role: user.role,
-            Email:user.email
+            Email:user.email,
+            Pincode:user.address.postalCode,
+
         });
     } catch (error) {
         console.error("Login Error:", error); // Logs the error for debugging

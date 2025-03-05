@@ -9,6 +9,7 @@ import { GmailApi_Route } from '../Routes/Gmail.route.js';
 import { ProfileRoute } from '../Routes/Profile.route.js';
 import { TestRoute } from '../Routes/Test.js';
 import { CrimeStatus_route } from '../Routes/CrimeStatus.route.js';
+import { BeAwareRoute } from '../Routes/BeAware.route.js';
 dotenv.config();
 
 
@@ -28,7 +29,7 @@ GmailApi_Route(app)
 ProfileRoute(app)
 TestRoute(app)
 CrimeStatus_route(app)
-
+BeAwareRoute(app)
 
 
 

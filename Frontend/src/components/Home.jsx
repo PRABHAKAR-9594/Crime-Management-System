@@ -79,9 +79,11 @@ export default function Home() {
                 <FontAwesomeIcon icon={faMapMarkerAlt} /> Be Aware
               </h3>
               <p className="text-gray-400 mb-4">Enter your area and view the latest crime reports, ensuring you stay informed and vigilant.</p>
+              <Link to='/beaware'>
               <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
                 Click Here
               </button>
+              </Link>
             </div>
           </div>
         </div>

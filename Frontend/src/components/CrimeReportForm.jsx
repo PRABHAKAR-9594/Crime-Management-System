@@ -195,7 +195,8 @@ Crime Reporting System Team
 
 
 
-            const response = await axios.post('http://localhost:8080/CrimeRegForm ', formData, {
+            const response = await axios.post('http://localhost:8080/CrimeRegForm ', {...formData,
+                acknowledgeNumber:ackNumber}, {
                 headers: { 
                     'Content-Type': 'application/json', 
                     'jwt-token': sessionStorage.getItem("Token") // Add token here
