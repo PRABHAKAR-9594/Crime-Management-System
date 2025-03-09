@@ -13,15 +13,4 @@ export const  crimeRegFormController= async(req,res)=>{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
 }

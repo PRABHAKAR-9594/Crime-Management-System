@@ -16,7 +16,11 @@ import ChatbotPage from './components/Chatbotpage.jsx';
 import StatusPage from './components/StatusPage.jsx';
 import ChatAgent from './components/ChatAgent.jsx';
 import BeAwarePage from './components/BeAwarePage.jsx';
+import ViewCriminalRecord from './components/Department/ViewcriminalRecord.jsx';
+import Thefthome from './components/Department/Theft/Thefthome.jsx';
 // Router setup
+import Addcriminal from './components/Department/Addcriminal.jsx';
+import DHome from './components/Department/DHome.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -57,6 +61,24 @@ const Router = createBrowserRouter([
   {
     path: '/beaware',
     element: <div><NavBar /> <BeAwarePage/> <Footer /></div>
+  },
+  //Department Routing 
+
+  {
+    path: '/dhome',
+    element: <div><NavBar /> <DHome/> <Footer /></div>
+  },
+  {
+    path: '/viewcriminal',
+    element: <div><NavBar /> <ViewCriminalRecord/> <Footer /></div>
+  },
+  {
+    path: '/addcriminal',
+    element: <div><NavBar /> <Addcriminal/> <Footer /></div>
+  },
+  {
+    path: '/theft/thefthome',
+    element: <div><NavBar /> <Thefthome/><Footer /></div>
   },
   {
     path: '*',

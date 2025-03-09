@@ -10,6 +10,7 @@ import { ProfileRoute } from '../Routes/Profile.route.js';
 import { TestRoute } from '../Routes/Test.js';
 import { CrimeStatus_route } from '../Routes/CrimeStatus.route.js';
 import { BeAwareRoute } from '../Routes/BeAware.route.js';
+import { criminal_routing } from '../Routes/criminaldata.route.js';
 dotenv.config();
 
 
@@ -30,7 +31,7 @@ ProfileRoute(app)
 TestRoute(app)
 CrimeStatus_route(app)
 BeAwareRoute(app)
-
+criminal_routing(app)
 
 
 app.listen(process.env.PORT,()=>{
