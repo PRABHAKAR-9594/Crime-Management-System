@@ -31,8 +31,53 @@ export default function Addcriminal() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, criminalImg: e.target.files[0] });
+  const handleFileChange = async (e) => {
+
+    const { name, files } = e.target; 
+    const file = files[0];  // Get the first selected file
+    const fileType = file?.type;
+    const fileSize = file?.size;
+
+    const maxFileSize = 5 * 1024 * 1024; // 5MB
+
+    if (fileSize > maxFileSize) {
+        alert("The file size is too large. Please upload a file smaller than 5MB.");
+        return;
+    }
+
+    // Check if a file was selected
+    if (!file) return;
+    const isImage = file.type.startsWith('image/');
+    if (!isImage) {
+      alert('Please upload a valid image or video file');
+      return;
+  }
+
+  const formData = new FormData();
+    formData.append('file', file); // Attach the file
+    formData.append('upload_preset', import.meta.env.VITE_REACT_UPLOAD_PRESET); // Replace with your upload preset name
+    formData.append('cloud_name', import.meta.env.VITE_REACT_CLOUD_NAME); // Replace with your Cloudinary Cloud Name
+  
+    try {
+      // Determine the appropriate Cloudinary endpoint
+      const cloudinaryEndpoint = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_REACT_CLOUD_NAME}/image/upload`; // Image upload endpoint
+
+      const response = await axios.post(cloudinaryEndpoint, formData);
+
+      // Get the URL of the uploaded file (image or video)
+      const filePath = response.data.secure_url;
+
+      // Update the state with the file URL (string path)
+      setFormData((prev) => {
+          
+          return {
+              ...prev,
+              criminalImg: filePath,
+          };
+      });
+  } catch (error) {
+      console.error('Error uploading file:', error);
+  }
   };
 
   const handleSubmit = async (e) => {
@@ -106,6 +151,7 @@ export default function Addcriminal() {
         <label className="text-white mt-4 block">Please upload a photo of the criminal:</label>
         <input
           type="file"
+          name="evidence.imageFile"
           accept="image/*"
           onChange={handleFileChange}
           className="w-full mt-2 text-white bg-black border border-red-500 p-2 rounded"
