@@ -34,14 +34,17 @@ export default function Home() {
               </button>
               </Link>
             </div>
+
             <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
               <h3 className="text-2xl text-[#fc2008] mb-2">
                 <FontAwesomeIcon icon={faSearch} /> Missing Reporting
               </h3>
               <p className="text-gray-400 mb-4">Report missing persons or items easily and help track them down faster.</p>
-              <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
+            <Link to='/missingreport'>
+            <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
                 Click Here
               </button>
+              </Link>
             </div>
             <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
               <h3 className="text-2xl text-[#fc2008] mb-2">
@@ -59,9 +62,11 @@ export default function Home() {
                 <FontAwesomeIcon icon={faUser } /> Missing Person Finder
               </h3>
               <p className="text-gray-400 mb-4">Search for missing individuals using location-based filters and provided photos.</p>
+              <Link to='/missingsearch'>
               <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
                 Click Here
               </button>
+              </Link>
             </div>
             <div className="text-center bg-[#222] border border-[#444] p-5 shadow-lg rounded-2xl">
               <h3 className="text-2xl text-[#fc2008] mb-2">

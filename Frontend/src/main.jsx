@@ -18,9 +18,11 @@ import ChatAgent from './components/ChatAgent.jsx';
 import BeAwarePage from './components/BeAwarePage.jsx';
 import ViewCriminalRecord from './components/Department/ViewcriminalRecord.jsx';
 import Thefthome from './components/Department/Theft/Thefthome.jsx';
+import MissingPersonReport from './components/MissingPersonReport.jsx';
 // Router setup
 import Addcriminal from './components/Department/Addcriminal.jsx';
 import DHome from './components/Department/DHome.jsx';
+import MissingSearchPage from './components/MissingSearchPage.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -61,6 +63,14 @@ const Router = createBrowserRouter([
   {
     path: '/beaware',
     element: <div><NavBar /> <BeAwarePage/> <Footer /></div>
+  },
+  {
+    path: '/missingsearch',
+    element: <div><NavBar /> <MissingSearchPage/> <Footer /></div>
+  },
+  {
+    path: '/missingreport',
+    element: <div><NavBar /> <MissingPersonReport/> <Footer /></div>
   },
   //Department Routing 
 
