@@ -143,27 +143,24 @@ const nevigate=useNavigate()
             const acknowledgmentNumber = generateAcknowledgmentNumber();
             setAcknowledgment(acknowledgmentNumber);
             try {
-                const Subject=`Crime Report Submission Successful – Acknowledgment No. ${acknowledgmentNumber}`
+                const Subject=`Subject: Missing Report Acknowledgment – Stay Strong. ${acknowledgmentNumber}`
                 const Message=`
     Dear ${Name},
-    
-    We have successfully received your crime report. Your acknowledgment number is ${acknowledgmentNumber}. Please keep this number for future reference.
-    
-    Current Status: Your report is under initial review and is currently waiting for officer assignment. Our team is actively processing your case, and you will be notified once an officer is assigned.
-    
-    You can also track the progress of your report anytime by visiting our website and checking the Status Section
-    
-    We understand that this may be a difficult time for you, but please remember that you are not alone. We are with you, and our dedicated team is working to address your case with care and urgency.
-    
-    If you have any urgent concerns or additional details to share, please do not hesitate to contact us at departmentofcrime4049@gmail.com or 100 .
-    
-    Stay strong, and rest assured that we are here for you.
-    
-    Best regards,
-    Crime Reporting System Team
-    
-    
-    
+
+We have successfully received your missing person report. Your acknowledgment number is ${acknowledgmentNumber}. Please keep this number safe for future reference.
+
+Current Status: Your report is under initial review and is currently waiting for officer assignment. Our dedicated team is actively working on your case, and you will be notified as soon as an officer is assigned.
+
+You can track the progress of your report anytime by visiting our website and checking the Status Section.
+
+We understand that this is a challenging time, but please remember: Hope is stronger than fear. Our team is committed to assisting you, and we are doing everything possible to help reunite you with your loved one.
+
+If you have any urgent concerns or additional details to share, please do not hesitate to contact us at departmentofcrime4049@gmail.com or call 100.
+
+Stay strong. You are not alone in this—we are here for you.
+
+Best regards,
+Crime Reporting System Team
     `
 
 
