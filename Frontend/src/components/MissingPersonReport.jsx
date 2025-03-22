@@ -136,6 +136,64 @@ const nevigate=useNavigate()
         }
     }, [showError, currentErrorIndex, errors]);
 
+
+
+
+
+    const handleFileChange = async (e) => {
+
+        const { name, files } = e.target; 
+        const file = files[0];  // Get the first selected file
+        const fileType = file?.type;
+        const fileSize = file?.size;
+    
+        const maxFileSize = 5 * 1024 * 1024; // 5MB
+    
+        if (fileSize > maxFileSize) {
+            alert("The file size is too large. Please upload a file smaller than 5MB.");
+            return;
+        }
+    
+        // Check if a file was selected
+        if (!file) return;
+        const isImage = file.type.startsWith('image/');
+        if (!isImage) {
+          alert('Please upload a valid image file');
+          return;
+      }
+    
+      const formData = new FormData();
+        formData.append('file', file); // Attach the file
+        formData.append('upload_preset', import.meta.env.VITE_REACT_UPLOAD_PRESET); // Replace with your upload preset name
+        formData.append('cloud_name', import.meta.env.VITE_REACT_CLOUD_NAME); // Replace with your Cloudinary Cloud Name
+      
+        try {
+          // Determine the appropriate Cloudinary endpoint
+          const cloudinaryEndpoint = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_REACT_CLOUD_NAME}/image/upload`; // Image upload endpoint
+    
+          const response = await axios.post(cloudinaryEndpoint, formData);
+    
+          // Get the URL of the uploaded file (image or video)
+          const filePath = response.data.secure_url;
+          console.log(filePath)
+    
+          // Update the state with the file URL (string path)
+          setFormData((prev) => ({
+            ...prev,
+            missingPerson: {
+                ...prev.missingPerson,
+                photo: filePath, // Correctly updating the photo inside missingPerson
+            },
+        }));
+      } catch (error) {
+          console.error('Error uploading file:', error);
+      }
+      };
+
+
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -217,13 +275,24 @@ Crime Reporting System Team
                 <div className="w-1/2 pr-6 border-r border-red-500">
                     <h2 className="text-3xl font-bold text-center mb-6">Report a Missing Person</h2>
                     <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-2 gap-6">
+
                         <input type="text" name="userame" placeholder="Your Username" value={formData.username} onChange={handleChange} className="mt-4 w-full h-[50px] bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+
                         <input type="text" name="fullName" placeholder="Full Name" value={formData.missingPerson.fullName} onChange={(e) => handleNestedChange(e, "missingPerson")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+
                         <input type="number" name="age" placeholder="Age" value={formData.missingPerson.age} onChange={(e) => handleNestedChange(e, "missingPerson")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
-                        <input type="file" accept="image/*" className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+
+                        <input type="file" accept="image/*"
+                        name="evidence.imageFile" 
+                        onChange={handleFileChange}
+                        className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+
+
                         <input type="text" name="contact" placeholder="Contact Number" value={formData.missingPerson.contact} onChange={(e) => handleNestedChange(e, "missingPerson")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
                         <input type="text" name="location" placeholder="Last Seen Location" value={formData.lastSeenDetails.location} onChange={(e) => handleNestedChange(e, "lastSeenDetails")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+
                         <input type="text" name="pincode" placeholder="Pincode" value={formData.lastSeenDetails.pincode} onChange={(e) => handleNestedChange(e, "lastSeenDetails")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+
                         <input type="date" name="date" value={formData.lastSeenDetails.date} onChange={(e) => handleNestedChange(e, "lastSeenDetails")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
                         <button type="submit" className="col-span-2 p-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition">Report Missing Person</button>
                     </form>{formSubmitted &&
