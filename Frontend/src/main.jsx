@@ -23,6 +23,14 @@ import MissingPersonReport from './components/MissingPersonReport.jsx';
 import Addcriminal from './components/Department/Addcriminal.jsx';
 import DHome from './components/Department/DHome.jsx';
 import MissingSearchPage from './components/MissingSearchPage.jsx';
+import Murderhome from './components/Department/Murder/Murderhome.jsx';
+import Missinghome from './components/Department/Missing/Missinghome.jsx';
+import Cybercrimehome from './components/Department/Cybercrime/Cybercrimehome.jsx';
+import CybOfficerReg from './components/Department/Cybercrime/CybOfficerReg.jsx';
+import TheftOfficerReg from './components/Department/Theft/TheftOfficerReg.jsx';
+import MurderOfficerReg from './components/Department/Murder/MurderOfficerReg.jsx';
+import MissingOfficerReg from './components/Department/Missing/MissingOfficerReg.jsx';
+import HistoryPage from './components/History.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -72,12 +80,15 @@ const Router = createBrowserRouter([
     path: '/missingreport',
     element: <div><NavBar /> <MissingPersonReport/> <Footer /></div>
   },
+  {
+    path: '/userhistory',
+    element: <div><NavBar /> <HistoryPage/><Footer /></div>
+  },
+
+
   //Department Routing 
 
-  {
-    path: '/dhome',
-    element: <div><NavBar /> <DHome/> <Footer /></div>
-  },
+ 
   {
     path: '/viewcriminal',
     element: <div><NavBar /> <ViewCriminalRecord/> <Footer /></div>
@@ -86,10 +97,55 @@ const Router = createBrowserRouter([
     path: '/addcriminal',
     element: <div><NavBar /> <Addcriminal/> <Footer /></div>
   },
+
+  //TheftRoute
   {
     path: '/theft/thefthome',
     element: <div><NavBar /> <Thefthome/><Footer /></div>
   },
+  {
+    path: '/theft/theftofficerreg',
+    element: <div><NavBar /> <TheftOfficerReg/><Footer /></div>
+  },
+// MurderRoute
+
+  {
+    path: '/murder/murderhome',
+    element: <div><NavBar /> <Murderhome/><Footer /></div>
+  },
+
+  {
+    path: '/murder/Murderofficerreg',
+    element: <div><NavBar /> <MurderOfficerReg/><Footer /></div>
+  },
+
+//MissingRoute
+
+  {
+    path: '/missing/missinghome',
+    element: <div><NavBar /> <Missinghome/><Footer /></div>
+  },
+  {
+    path: '/missing/missingofficerreg',
+    element: <div><NavBar /> <MissingOfficerReg/><Footer /></div>
+  },
+
+//Cybercrime routes
+
+  {
+    path: '/cybercrime/cybercrimehome',
+    element: <div><NavBar /> <Cybercrimehome/><Footer /></div>
+  },
+
+  {
+    path: '/cybercrime/cyberofficerreg',
+    element: <div><NavBar /><CybOfficerReg/><Footer /></div>
+  },
+
+
+
+
+  
   {
     path: '*',
     element: <div><PageNotFound /></div>

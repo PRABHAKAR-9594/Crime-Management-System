@@ -33,11 +33,7 @@ export const verify_reg = (req, res, next) => {
         }
 
         // Validate role
-        if (!req.body.role || !['user', 'admin', 'department'].includes(req.body.role)) {
-            return res.status(400).send({
-                message: 'Failed! Role is either missing or invalid. It must be one of: user, admin, department'
-            });
-        }
+      
 
         // Validate personal details
         if (!req.body.firstName) {

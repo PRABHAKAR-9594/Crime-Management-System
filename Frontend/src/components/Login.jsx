@@ -53,9 +53,16 @@ setTimeout(()=>{
   
  if (role === 'user') {
   navigate('/')
-  }else{
+  }
+  
+  else if (role === 'cyberofficer'){
+    navigate('/cybercrime/cybercrimehome')
+  }
+  else{
     navigate('/')
   }
+
+
  
 },4000)
 }

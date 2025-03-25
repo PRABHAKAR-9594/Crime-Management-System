@@ -42,16 +42,23 @@ function handlelogout(){
               <FaInfoCircle className="mr-2" /> About
             </Link>
           </li>
+          { uname &&(
           <li>
             <Link to="/profile" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <FaUserCircle className="mr-2" /> Profile
             </Link>
           </li>
+          )
+
+}
+        { uname &&(
           <li>
-            <Link to="/Status" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
-              <RiProgress3Fill className="mr-2" /> Status
+            <Link to="/userhistory" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
+              <RiProgress3Fill className="mr-2" /> History
             </Link>
           </li>
+        )
+}
           <li>
             {user =='' ? (
               <Link to="/login" className="flex items-center text-[#ff0000] hover:text-white transition-colors">

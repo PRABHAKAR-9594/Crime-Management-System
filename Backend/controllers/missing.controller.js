@@ -15,3 +15,20 @@ catch(err){
     
 }
 }
+
+// For Searching the missing 
+
+export const missing_search_controller=async(req,res)=>{
+    try{
+        const response=await missingPersonModel.find()
+        res.status(200).send({"Message":"Data Fatched Successfully !",response})
+    
+    
+    
+    }
+    catch(err){
+        res.status(400).send({"Message":"Something went wrong !",err})
+        console.log(err);
+        
+    }
+    }

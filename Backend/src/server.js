@@ -12,6 +12,7 @@ import { CrimeStatus_route } from '../Routes/CrimeStatus.route.js';
 import { BeAwareRoute } from '../Routes/BeAware.route.js';
 import { criminal_routing } from '../Routes/criminaldata.route.js';
 import { missing_route } from '../Routes/missing.route.js';
+import { history_route } from '../Routes/History.route.js';
 dotenv.config();
 
 
@@ -34,6 +35,9 @@ CrimeStatus_route(app)
 BeAwareRoute(app)
 criminal_routing(app)
 missing_route(app)
+history_route(app)
+
+
 
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);

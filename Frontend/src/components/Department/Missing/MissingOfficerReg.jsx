@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import myphoto from '../assets/lock.png';
+
+import myphoto from '../../../assets/lock.png'
+
+// import myphoto from '../assets/lock.png';
 import { memo } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
-const Register = () => {
+const MissingOfficerReg = () => {
     const Nevigate=useNavigate()
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const [alert, setAlert] = useState({ type: '', message: '' });
@@ -71,7 +74,7 @@ const onSubmit = async (data) => {
     } else if (otp == generatedOtp) {
         try {
 
-            await axios.post('http://localhost:8080/register', { ...data, role: 'user' });
+            await axios.post('http://localhost:8080/register', { ...data, role: 'missingofficer' });
             showAlert('success', 'Registration successful!');
 
 
@@ -314,4 +317,4 @@ return (
 );
     };
 
-export default memo(Register);
+export default memo(MissingOfficerReg);
