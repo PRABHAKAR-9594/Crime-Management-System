@@ -19,20 +19,27 @@ const MissingSearchPage = () => {
   const fetchMissingPersons = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get("http://localhost:8080/api/missing", {
+      console.log(searchName, searchPincode, daysFilter); 
+      const { data } = await axios.get("http://localhost:8080/searchmissing", {
         params: {
           name: searchName,
           pincode: searchPincode,
           days: daysFilter,
         },
       });
-      setResults(data);
+      setResults(data.response);
+      console.log("Fetched missing persons:", data);
     } catch (error) {
       console.error("Error fetching missing persons:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log("Updated results:", results);
+  }, [results]);
+  
 
   const debouncedFetch = debounce(fetchMissingPersons, 300);
 
