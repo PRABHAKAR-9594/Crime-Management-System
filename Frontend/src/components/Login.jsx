@@ -32,9 +32,12 @@ try{
     Best regards,
     Crime Management System Team`
 const Response=await axios.post('http://localhost:8080/login',{username:username,passwordHash:password})
-console.log(Response);
+console.log(Response.data);
 sessionStorage.setItem('Name',Response.data.Name)
 sessionStorage.setItem('Email',Response.data.Email)
+sessionStorage.setItem('contact',Response.data.contactNumber)
+console.log(Response.data.contactNumber);
+
 await axios.post('http://localhost:8080/sendGmail', {
   gmail: Response.data.Email,
   text: Loginmessage,
@@ -57,6 +60,15 @@ setTimeout(()=>{
   
   else if (role === 'cyberofficer'){
     navigate('/cybercrime/cybercrimehome')
+  }
+  else if (role === 'murderofficer'){
+    navigate('/murder/murderhome')
+  }
+  else if (role === 'missingofficer'){
+    navigate('/missing/missinghome')
+  }
+  else if (role === 'Theftofficer'){
+    navigate('/theft/thefthome')
   }
   else{
     navigate('/')

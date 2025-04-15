@@ -36,6 +36,7 @@ export const Login = async (req, res) => {
             Role: user.role,
             Email:user.email,
             Pincode:user.address.postalCode,
+            contactNumber:user.phone
 
         });
     } catch (error) {

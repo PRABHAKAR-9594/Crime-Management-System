@@ -248,13 +248,9 @@ Crime Reporting System Team
     >
         <option value="">Select a crime type</option>
         <option value="Theft">Theft</option>
-        <option value="Assault">Assault</option>
-        <option value="Robbery">Robbery</option>
-        <option value="Burglary">Burglary</option>
-        <option value="Vandalism">Vandalism</option>
-        <option value="Fraud">Fraud</option>
+         <option value="Fraud">Cybercrime</option>
         <option value="Murder">Murder</option>
-        <option value="Drug trafficking">Drug trafficking</option>
+      
         {/* Add more crime types as needed */}
     </select>
 </label>

@@ -7,13 +7,17 @@ const DHome = () => {
       {/* Sidebar Navigation */}
       <aside className="w-1/4 bg-gray-900 pt-[80px]  flex flex-col items-center border-r border-gray-700 " >
         <h2 className="text-3xl font-bold text-red-500 mb-6">MENU</h2>
-       <Link  className="w-full" to='/theft/theftofficerreg'> <NavItem  icon={<FaBuilding />} label="Add Officer" /></Link>
-       <Link to='/viewcriminal'  className="w-full"> <NavItem icon={<FaSearch />} label="Search Criminal" /> </Link>
-       <Link  className="w-full"><NavItem icon={<FaBriefcase />} label="Take the Case" /></Link>
-       <Link to='/CrimeReportingForm'  className="w-full"> <NavItem icon={<FaFileAlt />} label="Register Crime " /></Link>
-       <Link to='/addcriminal'  className="w-full"> <NavItem icon={<FaUserSecret />} label="Enter Criminal Report" /></Link>
-       <Link  className="w-full"> <NavItem icon={<FaHistory />} label="History" /></Link>
-       
+        <Link className="w-full" to='/theft/theftofficerreg'> <NavItem icon={<FaBuilding />} label="Add Officer" /></Link>
+        <Link to='/viewcriminal' className="w-full"> <NavItem icon={<FaSearch />} label="Search Criminal" /> </Link>
+        <Link to='/theft/takecase' className="w-full"><NavItem icon={<FaBriefcase />} label="Take the Case" /></Link>
+        <Link to='/CrimeReportingForm' className="w-full"> <NavItem icon={<FaFileAlt />} label="Register Crime " /></Link>
+        <Link to='/addcriminal' className="w-full"> <NavItem icon={<FaUserSecret />} label="Enter Criminal Report" /></Link>
+        <Link to='/dept/opencase' className="w-full">
+          <NavItem icon={<FaBriefcase />} label="Open Case" />
+        </Link>
+        <Link className="w-full"> <NavItem icon={<FaHistory />} label="History" /></Link>
+        
+
       </aside>
 
       {/* Main Content */}s

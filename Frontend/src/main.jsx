@@ -31,6 +31,15 @@ import TheftOfficerReg from './components/Department/Theft/TheftOfficerReg.jsx';
 import MurderOfficerReg from './components/Department/Murder/MurderOfficerReg.jsx';
 import MissingOfficerReg from './components/Department/Missing/MissingOfficerReg.jsx';
 import HistoryPage from './components/History.jsx';
+import TakeCase from './components/Department/Theft/TakeCase.jsx';
+
+//Take case 
+
+import TheftTakeCase from './components/Department/Theft/TakeCase.jsx';
+import MurderTakeCase from './components/Department/Murder/TakeCase.jsx';
+import CyberTakeCase from './components/Department/Cybercrime/TakeCase.jsx';
+import MissingTakeCase from './components/Department/Missing/TakeCase.jsx';
+import OpenCase from './components/Department/OpenCase.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -107,6 +116,14 @@ const Router = createBrowserRouter([
     path: '/theft/theftofficerreg',
     element: <div><NavBar /> <TheftOfficerReg/><Footer /></div>
   },
+  {
+    path: '/theft/takecase',
+    element: <div><NavBar /> <TheftTakeCase/><Footer /></div>
+  },
+  // {
+  //   path: '/theft/OpenCase',
+  //   element: <div><NavBar /> <TheftOpenCase></TheftOpenCase><Footer /></div>
+  // },
 // MurderRoute
 
   {
@@ -118,6 +135,10 @@ const Router = createBrowserRouter([
     path: '/murder/Murderofficerreg',
     element: <div><NavBar /> <MurderOfficerReg/><Footer /></div>
   },
+  {
+    path: '/murder/takecase',
+    element: <div><NavBar /> <MurderTakeCase/><Footer /></div>
+  },
 
 //MissingRoute
 
@@ -128,6 +149,10 @@ const Router = createBrowserRouter([
   {
     path: '/missing/missingofficerreg',
     element: <div><NavBar /> <MissingOfficerReg/><Footer /></div>
+  },
+  {
+    path: '/missing/takecase',
+    element: <div><NavBar /> <MissingTakeCase/><Footer /></div>
   },
 
 //Cybercrime routes
@@ -141,10 +166,18 @@ const Router = createBrowserRouter([
     path: '/cybercrime/cyberofficerreg',
     element: <div><NavBar /><CybOfficerReg/><Footer /></div>
   },
+  {
+    path: '/cybercrime/takecase',
+    element: <div><NavBar /> <CyberTakeCase/> <Footer /></div>
+  },
 
 
+// For all
 
-
+{
+  path: '/dept/opencase',
+  element: <div><NavBar /> <OpenCase/><Footer /></div>
+},
   
   {
     path: '*',

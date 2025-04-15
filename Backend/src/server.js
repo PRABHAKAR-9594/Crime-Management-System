@@ -13,6 +13,8 @@ import { BeAwareRoute } from '../Routes/BeAware.route.js';
 import { criminal_routing } from '../Routes/criminaldata.route.js';
 import { missing_route } from '../Routes/missing.route.js';
 import { history_route } from '../Routes/History.route.js';
+import { TakeCase_route } from '../Routes/TakeCase.route.js';
+import { OpenCase_routing } from '../Routes/OpenCase.route.js';
 dotenv.config();
 
 
@@ -36,8 +38,8 @@ BeAwareRoute(app)
 criminal_routing(app)
 missing_route(app)
 history_route(app)
-
-
+TakeCase_route(app)
+OpenCase_routing(app)
 
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);
