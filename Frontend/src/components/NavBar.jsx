@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 export default function NavBar() {
   const [user, setUser] = useState('');
   let AccessToken = sessionStorage.getItem('AccessToken')
-  console.log(AccessToken);
+  // console.log(AccessToken);
   let uname = sessionStorage.getItem('UserName')
   useEffect(()=>{
  if(uname!=null){
   setUser(uname)
-  console.log(uname);
+  // console.log(uname);
   
  }},[uname]
   )

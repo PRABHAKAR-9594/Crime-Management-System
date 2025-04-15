@@ -32,11 +32,11 @@ try{
     Best regards,
     Crime Management System Team`
 const Response=await axios.post('http://localhost:8080/login',{username:username,passwordHash:password})
-console.log(Response.data);
+
 sessionStorage.setItem('Name',Response.data.Name)
 sessionStorage.setItem('Email',Response.data.Email)
 sessionStorage.setItem('contact',Response.data.contactNumber)
-console.log(Response.data.contactNumber);
+
 
 await axios.post('http://localhost:8080/sendGmail', {
   gmail: Response.data.Email,
@@ -45,29 +45,32 @@ await axios.post('http://localhost:8080/sendGmail', {
 });
 showAlert('success', 'Login Successfully !');
 const decoded = jwtDecode(Response.data.AccessToken);
-console.log(decoded);
+
 sessionStorage.setItem('UserName',decoded.username);
-sessionStorage.setItem('Role',decoded.role);
+sessionStorage.setItem('Role',Response.data.Role);
+
+
 sessionStorage.setItem('Token',Response.data.AccessToken);
 sessionStorage.setItem('Pincode',Response.data.Pincode)
 setTimeout(()=>{
   const role =sessionStorage.getItem('Role')
-  console.log();
+  console.log(role);
+  
   
  if (role === 'user') {
   navigate('/')
   }
   
-  else if (role === 'cyberofficer'){
+  else if (role === 'cyberofficer' || role ==='HODCYBER'){
     navigate('/cybercrime/cybercrimehome')
   }
-  else if (role === 'murderofficer'){
+  else if (role === 'murderofficer' || role==='HODMURDER'){
     navigate('/murder/murderhome')
   }
-  else if (role === 'missingofficer'){
+  else if (role === 'missingofficer' ||role === 'HODMISSING'){
     navigate('/missing/missinghome')
   }
-  else if (role === 'Theftofficer'){
+  else if (role === 'Theftofficer'|| role === 'HODTHEFT'){
     navigate('/theft/thefthome')
   }
   else{
@@ -80,7 +83,7 @@ setTimeout(()=>{
 }
 catch(error){
   console.log(error?.response?.data?.message);
-    console.log(error);
+    // console.log(error);
     showAlert('error', error?.response?.data?.message);
     
 }
@@ -88,14 +91,14 @@ catch(error){
   };
 
   const handleRegister = () => {
-    console.log("Redirecting to registration...");
+    // console.log("Redirecting to registration...");
     // Add registration logic or redirect here
     navigate("/register");
 
   };
 
   const handleAlreadyRegistered = () => {
-    console.log("Redirecting to login...");
+    // console.log("Redirecting to login...");
     // Redirect or show login logic
   };
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useForm } from 'react-hook-form';
-
+import { useEffect } from "react";
 import myphoto from '../../../assets/lock.png'
 
 // import myphoto from '../assets/lock.png';
@@ -9,6 +9,14 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
 const TheftOfficerReg = () => {
+    const Username=sessionStorage.getItem('UserName')
+    const nevigate=useNavigate()
+         useEffect(()=>{
+            if (!Username) {
+              nevigate('/login')
+            }
+          },[Username]);
+
     const Nevigate=useNavigate()
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const [alert, setAlert] = useState({ type: '', message: '' });

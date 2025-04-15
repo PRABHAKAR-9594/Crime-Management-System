@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
 import { FaBuilding, FaSearch, FaBriefcase, FaFileAlt, FaUserSecret, FaHistory } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const Cybercrimehome = () => {
+  const Username=sessionStorage.getItem('UserName')
+const nevigate=useNavigate()
+     useEffect(()=>{
+        if (!Username) {
+          nevigate('/login')
+        }
+      },[Username]);
+      const role =sessionStorage.getItem('Role')
+      console.log(role);
+
   return (
     <div className="min-h-screen flex bg-black text-white h-[20px]">
       {/* Sidebar Navigation */}
       <aside className="w-1/4 bg-gray-900 pt-[80px]  flex flex-col items-center border-r border-gray-700 " >
         <h2 className="text-3xl font-bold text-red-500 mb-6">MENU</h2>
-       <Link  className="w-full" to='/cybercrime/cyberofficerreg'> <NavItem  icon={<FaBuilding />} label="Add Officer" /></Link>
+        { role === 'HODCYBER' &&   <Link  className="w-full" to='/cybercrime/cyberofficerreg'> <NavItem  icon={<FaBuilding />} label="Add Officer" /></Link>}
        <Link to='/viewcriminal'  className="w-full"> <NavItem icon={<FaSearch />} label="Search Criminal" /> </Link>
        <Link  className="w-full" to='/cybercrime/takecase'><NavItem icon={<FaBriefcase />} label="Take the Case" /></Link>
        <Link to='/CrimeReportingForm'  className="w-full"> <NavItem icon={<FaFileAlt />} label="Register Crime " /></Link>

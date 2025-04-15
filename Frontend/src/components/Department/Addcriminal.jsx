@@ -1,7 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 export default function Addcriminal() {
+  const Username=sessionStorage.getItem('UserName')
+  const nevigate=useNavigate()
+       useEffect(()=>{
+          if (!Username) {
+            nevigate('/login')
+          }
+        },[Username]);
+
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",

@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const OpenCase = () => {
+  const Username=sessionStorage.getItem('UserName')
+  const nevigate=useNavigate()
+       useEffect(()=>{
+          if (!Username) {
+            nevigate('/login')
+          }
+        },[Username]);
   const [cases, setCases] = useState([]);
   const [profiles, setProfiles] = useState({});
   const officerUserName = sessionStorage.getItem("UserName") || "";
