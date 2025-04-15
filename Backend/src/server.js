@@ -15,6 +15,7 @@ import { missing_route } from '../Routes/missing.route.js';
 import { history_route } from '../Routes/History.route.js';
 import { TakeCase_route } from '../Routes/TakeCase.route.js';
 import { OpenCase_routing } from '../Routes/OpenCase.route.js';
+import { DEPTHistory_route } from '../Routes/DEPTHistory.route.js';
 dotenv.config();
 
 
@@ -40,7 +41,7 @@ missing_route(app)
 history_route(app)
 TakeCase_route(app)
 OpenCase_routing(app)
-
+DEPTHistory_route(app)
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);
 

@@ -40,6 +40,7 @@ import MurderTakeCase from './components/Department/Murder/TakeCase.jsx';
 import CyberTakeCase from './components/Department/Cybercrime/TakeCase.jsx';
 import MissingTakeCase from './components/Department/Missing/TakeCase.jsx';
 import OpenCase from './components/Department/OpenCase.jsx';
+import DHistory from './components/Department/DHistory.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -174,6 +175,11 @@ const Router = createBrowserRouter([
 
 // For all
 
+{
+  path: '/dept/dhistory',
+  element: <div><NavBar /> <DHistory/><Footer /></div>
+},
+  
 {
   path: '/dept/opencase',
   element: <div><NavBar /> <OpenCase/><Footer /></div>

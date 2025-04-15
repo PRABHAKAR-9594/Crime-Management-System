@@ -8,6 +8,8 @@ export default function NavBar() {
   let AccessToken = sessionStorage.getItem('AccessToken')
   // console.log(AccessToken);
   let uname = sessionStorage.getItem('UserName')
+  const role =sessionStorage.getItem('Role')
+  // console.log(role);
   useEffect(()=>{
  if(uname!=null){
   setUser(uname)
@@ -51,7 +53,7 @@ function handlelogout(){
           )
 
 }
-        { uname &&(
+        { role ==='user' &&(
           <li>
             <Link to="/userhistory" className="flex items-center text-white hover:text-[#ff0000] transition-colors">
               <RiProgress3Fill className="mr-2" /> History

@@ -26,7 +26,7 @@ const nevigate=useNavigate()
         <Link to='/dept/opencase' className="w-full">
                  <NavItem icon={<FaBriefcase />} label="Open Case" />
                </Link>
-       <Link  className="w-full"> <NavItem icon={<FaHistory />} label="History" /></Link>
+       <Link to='/dept/dhistory' className="w-full"> <NavItem icon={<FaHistory />} label="History" /></Link>
        
       </aside>
 

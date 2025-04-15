@@ -104,7 +104,7 @@ catch(error){
 
   return (
     <>
-     <div className="bg-[#010000]  h-[700px] flex items-center justify-center relative top-16 space-y-20 mb-[64px]" >
+     <div className="bg-[#010000]  h-[700px] flex items-center justify-center relative top-16 space-y-20 mb-[64px] pb-[150px]" >
   {/* Dark Overlay */}
   <div className="absolute top-0 left-0 w-full h-full bg-[#0b0909] opacity-80 z-0"></div>
 
@@ -114,7 +114,7 @@ catch(error){
       <img
         src={prisonImage}
         alt="Prison"
-        className="w-48 h-48 rounded-full object-cover border-4 border-red-600" // Circle image
+        className="w" // Circle image
       />
       <p className="text-white text-lg font-semibold">
         "Speak up for justice, take a stand against crime—because change begins with action."
