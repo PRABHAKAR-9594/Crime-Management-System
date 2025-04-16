@@ -31,6 +31,7 @@ import TheftOfficerReg from './components/Department/Theft/TheftOfficerReg.jsx';
 import MurderOfficerReg from './components/Department/Murder/MurderOfficerReg.jsx';
 import MissingOfficerReg from './components/Department/Missing/MissingOfficerReg.jsx';
 import HistoryPage from './components/History.jsx';
+import ForgetPassword from './components/ForgetPassword.jsx';
 import TakeCase from './components/Department/Theft/TakeCase.jsx';
 
 //Take case 
@@ -49,6 +50,10 @@ const Router = createBrowserRouter([
   {
     path: '/register',
     element: <div><NavBar /> <Register /> <Footer /></div>
+  },
+  {
+    path: '/ForgetPassword',
+    element: <div><NavBar /> <ForgetPassword /> <Footer /></div>
   },
   {
     path: '/login',

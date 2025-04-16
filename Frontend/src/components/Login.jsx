@@ -160,7 +160,7 @@ catch(error){
 
               {/* Forgot Password Link */}
               <div className="text-right">
-                <a href="#" className="text-red-400 hover:text-red-500 text-sm">
+                <a href="/ForgetPassword" className="text-red-400 hover:text-red-500 text-sm">
                   Forgot your password?
                 </a>
               </div>
