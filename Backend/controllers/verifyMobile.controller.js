@@ -38,12 +38,12 @@ export const newPassword = async (req, res) => {
         
         if (user) {
             // Hash the new password
-            const hashedPassword = await bcrypt.hash(newPassword, 10); // 10 rounds for better security
+            const hashedPassword = await bcrypt.hash(newPassword, 8); // 10 rounds for better security
             
             // Update the password in the database
             const result = await user_model.updateOne(
                 { phone, email }, // Filter based on both fields
-                { $set: { password: hashedPassword } } // Update operation
+                { $set: { passwordHash: hashedPassword } } // Update operation
             );
 
             if (result.modifiedCount > 0) {

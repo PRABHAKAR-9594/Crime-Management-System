@@ -60,7 +60,9 @@ setTimeout(()=>{
  if (role === 'user') {
   navigate('/')
   }
-  
+  else if(role === 'admin'){
+    navigate('/admin/adminhome')
+  }
   else if (role === 'cyberofficer' || role ==='HODCYBER'){
     navigate('/cybercrime/cybercrimehome')
   }

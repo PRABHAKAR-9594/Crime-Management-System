@@ -177,6 +177,12 @@ const Router = createBrowserRouter([
     element: <div><NavBar /> <CyberTakeCase/> <Footer /></div>
   },
 
+  // for admin
+  // {
+  //   path: '/admin/adminhome',
+  //   element: <div></div>
+  // }
+
 
 // For all
 
