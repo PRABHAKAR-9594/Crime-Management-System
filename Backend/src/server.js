@@ -18,6 +18,8 @@ import { OpenCase_routing } from '../Routes/OpenCase.route.js';
 import { DEPTHistory_route } from '../Routes/DEPTHistory.route.js';
 import { verify_Mobile } from '../Routes/verifyMobile.js';
 import { MissingTakeCase_route } from '../Routes/MissingTakeCase.route.js';
+import { MissingOpenCase_routing } from '../Routes/MissingOpenCase.route.js';
+import { MissingHistory_route } from '../Routes/MissingHistory.route.js';
 dotenv.config();
 
 
@@ -46,8 +48,8 @@ OpenCase_routing(app)
 DEPTHistory_route(app)
 verify_Mobile(app)
 MissingTakeCase_route(app)
-
-
+MissingOpenCase_routing(app)
+MissingHistory_route(app)
 
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);

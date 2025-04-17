@@ -22,10 +22,10 @@ const Missinghome = () => {
          <Link to='/missing/takecase' className="w-full"><NavItem icon={<FaBriefcase />} label="Take the Case" /></Link>
          <Link to='/CrimeReportingForm'  className="w-full"> <NavItem icon={<FaFileAlt />} label="Register Crime " /></Link>
          <Link to='/addcriminal'  className="w-full"> <NavItem icon={<FaUserSecret />} label="Enter Criminal Report" /></Link>
-          <Link to='/dept/opencase' className="w-full">
+          <Link to='/missing/opencase' className="w-full">
                    <NavItem icon={<FaBriefcase />} label="Open Case" />
                  </Link>
-         <Link to='/dept/dhistory'  className="w-full"> <NavItem icon={<FaHistory />} label="History" /></Link>
+         <Link to='/missing/history'  className="w-full"> <NavItem icon={<FaHistory />} label="History" /></Link>
          
         </aside>
   

@@ -36,6 +36,7 @@ import TakeCase from './components/Department/Theft/TakeCase.jsx';
 
 //Take case 
 
+import MissingOpenCase from './components/Department/Missing/MissingOpenCase.jsx';
 import TheftTakeCase from './components/Department/Theft/TakeCase.jsx';
 import MurderTakeCase from './components/Department/Murder/TakeCase.jsx';
 import CyberTakeCase from './components/Department/Cybercrime/TakeCase.jsx';
@@ -48,6 +49,7 @@ import ViewDepartment from './components/Admin/ViewDepartment.jsx';
 import ViewReports from './components/Admin/ViewReports.jsx';
 import CriminalDatabase from './components/Admin/CriminalDatabase.jsx';
 import AdminComplaints from './components/Admin/AdminComplaints.jsx'
+import MissingHistory from './components/Department/Missing/MissingHistory.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -165,6 +167,14 @@ const Router = createBrowserRouter([
   {
     path: '/missing/takecase',
     element: <div><NavBar /> <MissingTakeCase/><Footer /></div>
+  },
+  {
+    path: '/missing/opencase',
+    element: <div><NavBar /> <MissingOpenCase></MissingOpenCase><Footer /></div>
+  },
+  {
+    path: '/missing/history',
+    element: <div><NavBar /> <MissingHistory/><Footer /></div>
   },
 
 //Cybercrime routes
