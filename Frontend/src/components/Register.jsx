@@ -118,175 +118,368 @@ return (
                     <h2 className="text-[#ff0000]   text-4xl mb-6 text-center">Register</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
                         {/* First row: First Name and Last Name */}
-                        <div className="flex gap-5">
-                            <div className="flex-1">
-                                <label className=''>First Name:</label>
-                                <input
-                                    type="text"
-                                    {...register('firstName', { required: 'First name is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
-                            </div>
-                            <div className="flex-1">
-                                <label>Last Name:</label>
-                                <input
-                                    type="text"
-                                    {...register('lastName', { required: 'Last name is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
-                            </div>
-                        </div>
+{/* First row: First Name and Last Name */}
+<div className="flex gap-5">
+  <div className="flex-1">
+    <label>First Name:</label>
+    <input
+      type="text"
+      {...register('firstName', {
+        required: 'First name is required',
+        minLength: { value: 4, message: 'Minimum 4 characters required' },
+        maxLength: { value: 15, message: 'Maximum 15 characters allowed' },
+      })}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      onInput={(e) => {
+        let value = e.target.value;
+        value = value.replace(/[^a-zA-Z]/g, ''); // Only letters
+        if (value.length > 15) value = value.slice(0, 15);
+        if (value) value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+        e.target.value = value;
+      }}
+      placeholder='eg. John'
+    />
+    {errors.firstName && <p className="text-red-500">{errors.firstName.message}</p>}
+  </div>
+
+  <div className="flex-1">
+    <label>Last Name:</label>
+    <input
+      type="text"
+      {...register('lastName', {
+        required: 'Last name is required',
+        minLength: { value: 4, message: 'Minimum 4 characters required' },
+        maxLength: { value: 15, message: 'Maximum 15 characters allowed' },
+      })}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      onInput={(e) => {
+        let value = e.target.value;
+        value = value.replace(/[^a-zA-Z]/g, ''); // Only letters
+        if (value.length > 15) value = value.slice(0, 15);
+        if (value) value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+        e.target.value = value;
+      }}
+      placeholder='eg. Doe'
+    />
+    {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
+  </div>
+</div>
+ 
 
                         {/* Second row: Username and Email */}
-                        <div className="flex gap-5">
-                            <div className="flex-1">
-                                <label>Username:</label>
-                                <input
-                                    type="text"
-                                    {...register('username', { required: 'Username is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.username && <p className="text-red-500">{errors.username.message}</p>}
-                            </div>
-                            <div className="flex-1">
-                                <label>Email:</label>
-                                <input
-                                    type="email"
-                                    {...register('email', { required: 'Email is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-                            </div>
-                        </div>
+<div className="flex gap-5">
+  <div className="flex-1">
+    <label>Username:</label>
+    <input
+      type="text"
+      {...register('username', {
+        required: 'Username is required',
+        minLength: { value: 5, message: 'Minimum 5 characters required' },
+        maxLength: { value: 15, message: 'Maximum 15 characters allowed' },
+      })}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      onInput={(e) => {
+        let value = e.target.value;
+        value = value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase(); // Only lowercase letters
+        if (value.length > 15) value = value.slice(0, 15); // Max 15 chars
+        e.target.value = value;
+      }}
+      placeholder='eg. johndoe123'
+    />
+    {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+  </div>
 
-                        {/* Third row: Phone and Adhar Number */}
-                        <div className="flex gap-5">
-                            <div className="flex-1">
-                                <label>Phone:</label>
-                                <input
-                                    type="text"
-                                    {...register('phone', { required: 'Phone number is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
-                            </div>
-                            <div className="flex-1">
-                                <label>Adhar Number:</label>
-                                <input
-                                    type="text"
-                                    {...register('AdharNumber', { required: 'Adhar number is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.AdharNumber && <p className="text-[#ff0000]">{errors.AdharNumber.message}</p>}
-                            </div>
-                        </div>
+  <div className="flex-1">
+    <label>Email:</label>
+    <input
+      type="email"
+      {...register('email', {
+        required: 'Email is required',
+        minLength: { value: 5, message: 'Minimum 5 characters required' },
+        pattern: {
+          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+          message: 'Enter a valid email address',
+        },
+      })}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      onInput={(e) => {
+        e.target.value = e.target.value.toLowerCase(); // Force lowercase
+      }}
+      placeholder='eg. abc@gmail.com'
+    />
+    {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+  </div>
+</div>
+
+                        {/* Third row: Phone and Aadhaar Number */}
+<div className="flex gap-5">
+  <div className="flex-1">
+    <label>Phone:</label>
+    <div className="flex">
+      <span className="bg-gray-800 text-white p-2 px-3 rounded-l border border-gray-600 select-none">+91</span>
+      <input
+        type="text"
+        {...register('phone', {
+          required: 'Phone number is required',
+          minLength: { value: 10, message: 'Phone must be exactly 10 digits' },
+          maxLength: { value: 10, message: 'Phone must be exactly 10 digits' },
+          pattern: {
+            value: /^[0-9]{10}$/,
+            message: 'Only numeric digits are allowed',
+          },
+        })}
+        className="border border-gray-600 rounded-r bg-gray-700 text-white p-2 w-full"
+        onInput={(e) => {
+          e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+        }}
+        placeholder='XXXXXXXXXX'
+      />
+    </div>
+    {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+  </div>
+
+  <div className="flex-1">
+    <label>Aadhaar Number:</label>
+    <input
+      type="text"
+      {...register('AdharNumber', {
+        required: 'Aadhaar number is required',
+        minLength: { value: 12, message: 'Aadhaar must be 12 digits' },
+        maxLength: { value: 12, message: 'Aadhaar must be 12 digits' },
+        pattern: {
+          value: /^[0-9]{12}$/,
+          message: 'Only numeric digits are allowed',
+        },
+      })}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      onInput={(e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 12);
+        
+      }}
+      placeholder="XXX-XXXX-XXXX"
+    />
+    {errors.AdharNumber && <p className="text-red-500">{errors.AdharNumber.message}</p>}
+    
+  </div>
+</div>
 
                         {/* Fourth row: Street Address and City */}
-                        <div className="flex gap-5">
-                            <div className="flex-1">
-                                <label>Street Address:</label>
-                                <input
-                                    type="text"
-                                    {...register('address.street', { required: 'Street address is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.address?.street && <p className="text-red-500">{errors.address?.street.message}</p>}
-                            </div>
-                            <div className="flex-1">
-                                <label>City:</label>
-                                <input
-                                    type="text"
-                                    {...register('address.city', { required: 'City is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.address?.city && <p className="text-red-500">{errors.address?.city.message}</p>}
-                            </div>
-                        </div>
+<div className="flex gap-5">
+  {/* Street Address Field */}
+  <div className="flex-1">
+    <label>Street Address:</label>
+    <input
+      type="text"
+      {...register('address.street', {
+        required: 'Street address is required',
+        minLength: { value: 5, message: 'Minimum 5 characters required' },
+        maxLength: { value: 50, message: 'Maximum 50 characters allowed' },
+        pattern: {
+          value: /^[a-zA-Z0-9\s.,\-_]+$/,
+          message: 'Only letters, numbers, space, ., -, _, , allowed',
+        },
+      })}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      onInput={(e) => {
+        e.target.value = e.target.value.replace(/[^a-zA-Z0-9\s.,\-_]/g, '').slice(0, 50);
+      }}
+      placeholder="e.g., 123 Main St., Block-B"
+    />
+    {errors.address?.street && <p className="text-red-500">{errors.address?.street.message}</p>}
+  </div>
 
-                        {/* Fifth row: State and Postal Code */}
-                        <div className="flex gap-5">
-                            <div className="flex-1">
-                                <label>State:</label>
-                                <input
-                                    type="text"
-                                    {...register('address.state', { required: 'State is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.address?.state && <p className="text-red-500">{errors.address?.state.message}</p>}
-                            </div>
-                            <div className="flex-1">
-                                <label>Postal Code:</label>
-                                <input
-                                    type="text"
-                                    {...register('address.postalCode', { required: 'Postal code is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.address?.postalCode && <p className="text-red-500">{errors.address?.postalCode.message}</p>}
-                            </div>
-                        </div>
+  {/* City Field */}
+  <div className="flex-1">
+    <label>City:</label>
+    <input
+      type="text"
+      {...register('address.city', {
+        required: 'City is required',
+        minLength: { value: 3, message: 'Minimum 3 characters required' },
+        maxLength: { value: 20, message: 'Maximum 20 characters allowed' },
+        pattern: {
+          value: /^[A-Z][a-z]{2,19}$/,
+          message: 'First letter capital, rest small, no digits or symbols',
+        },
+      })}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      onInput={(e) => {
+        let value = e.target.value.replace(/[^a-zA-Z]/g, '').slice(0, 20);
+        if (value) {
+          value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+        }
+        e.target.value = value;
+      }}
+      placeholder="e.g., Mumbai"
+    />
+    {errors.address?.city && <p className="text-red-500">{errors.address?.city.message}</p>}
+  </div>
+</div>
+
+
+                       {/* Fifth row: State and Postal Code */}
+<div className="flex gap-5">
+  {/* State Field */}
+  <div className="flex-1">
+    <label>State:</label>
+    <input
+      type="text"
+      {...register('address.state', {
+        required: 'State is required',
+        minLength: { value: 3, message: 'Minimum 3 characters required' },
+        maxLength: { value: 20, message: 'Maximum 20 characters allowed' },
+        pattern: {
+          value: /^[A-Z][a-z]{2,19}$/,
+          message: 'Only alphabets allowed. First letter capital, rest small',
+        },
+      })}
+      onInput={(e) => {
+        let value = e.target.value.replace(/[^a-zA-Z]/g, '').slice(0, 20);
+        if (value) {
+          value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+        }
+        e.target.value = value;
+      }}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      placeholder="e.g., Maharashtra"
+    />
+    {errors.address?.state && <p className="text-red-500">{errors.address?.state.message}</p>}
+  </div>
+
+  {/* Postal Code Field */}
+  <div className="flex-1">
+    <label>Postal Code:</label>
+    <input
+      type="text"
+      {...register('address.postalCode', {
+        required: 'Postal code is required',
+        pattern: {
+          value: /^[0-9]{6}$/,
+          message: 'Postal code must be exactly 6 digits',
+        },
+      })}
+      onInput={(e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
+      }}
+      className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+      placeholder="e.g., 400001"
+    />
+    {errors.address?.postalCode && <p className="text-red-500">{errors.address?.postalCode.message}</p>}
+  </div>
+</div>
 
                         {/* Sixth row: Country and Password */}
-                        <div className="flex gap-5">
-                            <div className="flex-1">
-                                <label>Country:</label>
-                                <input
-                                    type="text"
-                                    {...register('address.country', { required: 'Country is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.address?.country && <p className="text-red-500">{errors.address?.country.message}</p>}
-                            </div>
-                            <div className="flex-1">
-                                <label>Password:</label>
-                                <input
-                                    type="password"
-                                    {...register('passwordHash', { required: 'Password is required' })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-                            </div>
-                        </div>
+<div className="flex gap-5">
+    {/* Country field */}
+    <div className="flex-1">
+        <label>Country:</label>
+        <input
+            type="text"
+            value="India"
+            readOnly
+            {...register('address.country', { required: 'Country is required' })}
+            className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full cursor-not-allowed"
+        />
+        {errors.address?.country && (
+            <p className="text-red-500">{errors.address?.country.message}</p>
+        )}
+    </div>
+
+    {/* Password field */}
+    <div className="flex-1">
+        <label>Password:</label>
+        <input
+            type="password"
+            {...register('passwordHash', {
+                required: 'Password is required',
+                minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters',
+                },
+                maxLength: {
+                    value: 20,
+                    message: 'Password cannot exceed 20 characters',
+                },
+                pattern: {
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                    message: 'Must include number, uppercase & lowercase',
+                },
+            })}
+            placeholder="Enter password"
+            className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+        />
+        {errors.passwordHash && (
+            <p className="text-red-500">{errors.passwordHash.message}</p>
+        )}
+    </div>
+</div>
+
 
                         {/* Seventh row: Confirm Password and Gender */}
-                        <div className="flex gap-5">
-                            <div className="flex-1">
-                                <label>Confirm Password:</label>
-                                <input
-                                    type="password"
-                                    {...register('confirmPassword', {
-                                        required: 'Confirm password is required',
-                                        validate: (value) =>
-                                            value === watch('passwordHash') || 'Passwords do not match'
-                                    })}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
-                            </div>
-                            <div className="flex-1">
-                                <label>Gender:</label>
-                                <select {...register('gender')} className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
+<div className="flex gap-5">
+    {/* Confirm Password field */}
+    <div className="flex-1">
+        <label>Confirm Password:</label>
+        <input
+            type="password"
+            {...register('confirmPassword', {
+                required: 'Confirm password is required',
+                validate: (value) =>
+                    value === watch('passwordHash') || 'Passwords do not match',
+                minLength: {
+                    value: 8,
+                    message: 'Confirm password must be at least 8 characters',
+                },
+                maxLength: {
+                    value: 20,
+                    message: 'Confirm password cannot exceed 20 characters',
+                },
+            })}
+            className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+        />
+        {errors.confirmPassword && (
+            <p className="text-red-500">{errors.confirmPassword.message}</p>
+        )}
+    </div>
 
-                        {isOtpSend && (
-                            <div className="flex flex-col">
-                                <label htmlFor="otp">Enter Your OTP:</label>
-                                <input
-                                    id='otp'
-                                    value={otp}
-                                    type='text'
-                                    onChange={(e) => setOtp(e.target.value)}
-                                    className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
-                                />
-                                <a onClick={reSendOtp} className="text-blue-500 hover:underline cursor-pointer mt-2">Resend OTP?</a>
-                            </div>
-                        )}
+    {/* Gender selection field */}
+    <div className="flex-1">
+        <label>Gender:</label>
+        <select
+            {...register('gender', { required: 'Gender is required' })}
+            className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+        >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        {errors.gender && (
+            <p className="text-red-500">{errors.gender.message}</p>
+        )}
+    </div>
+</div>
+
+{/* OTP Section */}
+{isOtpSend && (
+    <div className="flex flex-col">
+        <label htmlFor="otp">Enter Your OTP:</label>
+        <input
+            id="otp"
+            value={otp}
+            type="text"
+            onChange={(e) => setOtp(e.target.value)}
+            className="border border-gray-600 rounded bg-gray-700 text-white p-2 w-full"
+        />
+        <a
+            onClick={reSendOtp}
+            className="text-blue-500 hover:underline cursor-pointer mt-2"
+        >
+            Resend OTP?
+        </a>
+    </div>
+)}
+
 
                         {/* Submit Button */}
                         <div>

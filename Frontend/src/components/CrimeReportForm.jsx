@@ -247,9 +247,17 @@ Crime Reporting System Team
         required
     >
         <option value="">Select a crime type</option>
-        <option value="Theft">Theft</option>
-         <option value="Fraud">Cybercrime</option>
-        <option value="Murder">Murder</option>
+<option value="Theft">Theft</option>
+<option value="Assault">Assault</option>
+<option value="Fraud">Fraud</option>
+<option value="Homicide">Homicide</option>
+<option value="Kidnapping">Kidnapping</option>
+<option value="CyberCrime">Cyber Crime</option>
+<option value="DrugTrafficking">Drug Trafficking</option>
+<option value="Robbery">Robbery</option>
+<option value="Vandalism">Vandalism</option>
+<option value="HumanTrafficking">Human Trafficking</option>
+
       
         {/* Add more crime types as needed */}
     </select>
