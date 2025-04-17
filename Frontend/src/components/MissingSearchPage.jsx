@@ -19,7 +19,7 @@ const MissingSearchPage = () => {
   const fetchMissingPersons = async () => {
     setLoading(true);
     try {
-      console.log(searchName, searchPincode, daysFilter); 
+      console.log(searchName, searchPincode, daysFilter);
       const { data } = await axios.get("http://localhost:8080/searchmissing", {
         params: {
           name: searchName,
@@ -39,7 +39,7 @@ const MissingSearchPage = () => {
   useEffect(() => {
     console.log("Updated results:", results);
   }, [results]);
-  
+
 
   const debouncedFetch = debounce(fetchMissingPersons, 300);
 
@@ -57,11 +57,11 @@ const MissingSearchPage = () => {
 
       <div className="bg-gray-800 p-6 rounded-lg mb-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <input type="text" placeholder="Enter name..." value={searchName} 
+          <input type="text" placeholder="Enter name..." value={searchName}
             onChange={(e) => setSearchName(e.target.value)} className="p-4 bg-gray-700 text-gray-200 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
-          <input type="text" placeholder="Enter pincode..." value={searchPincode} 
+          <input type="text" placeholder="Enter pincode..." value={searchPincode}
             onChange={(e) => setSearchPincode(e.target.value)} className="p-4 bg-gray-700 text-gray-200 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
-          <input type="number" placeholder="Max days since last seen..." value={daysFilter} 
+          <input type="number" placeholder="Max days since last seen..." value={daysFilter}
             onChange={(e) => setDaysFilter(e.target.value)} className="p-4 bg-gray-700 text-gray-200 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
         </div>
       </div>
@@ -73,8 +73,13 @@ const MissingSearchPage = () => {
           {results.length > 0 ? (
             results.map((person) => (
               <div key={person._id} className="bg-gray-800 p-6 rounded-lg border border-gray-700 flex flex-col md:flex-row items-center gap-6">
-                <img src={person.missingPerson.photo} alt={person.missingPerson.fullName} 
-                  className="w-48 h-48 rounded-lg border border-gray-600 cursor-pointer object-cover" />
+                <a href={person.missingPerson.photo} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={person.missingPerson.photo}
+                    alt={person.missingPerson.fullName}
+                    className="w-48 h-48 rounded-lg border border-gray-600 cursor-pointer object-cover hover:scale-105 transition-transform duration-200"
+                  />
+                </a>
                 <div>
                   <h3 className="text-red-400 text-2xl font-semibold">{person.missingPerson.fullName}</h3>
                   <p className="text-lg">Age: {person.missingPerson.age}</p>

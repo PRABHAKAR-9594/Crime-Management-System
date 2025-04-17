@@ -67,9 +67,9 @@ export default function ViewCriminalRecord() {
               className="w-full p-3 bg-transparent text-white outline-none"
             />
             <button
-              className={`p-3 transition duration-300 ${  "bg-red-600 hover:bg-red-700"}`}
+              className={`p-3 transition duration-300 ${"bg-red-600 hover:bg-red-700"}`}
               onClick={OnSearch}
-              
+
             >
               <FaSearch className="text-white" />
             </button>
@@ -95,7 +95,13 @@ export default function ViewCriminalRecord() {
                 <>
                   <tr key={criminal._id} className="bg-gray-800 text-white hover:bg-gray-700 transition duration-200">
                     <td className="border border-gray-700 p-3">
-                      <img src={criminal.image} alt={criminal.firstname} className="w-16 h-16 rounded-full object-cover border border-red-500" />
+                      <a href={criminal.image} target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={criminal.image}
+                          alt={criminal.firstname}
+                          className="w-16 h-16 rounded-full object-cover border border-red-500 cursor-pointer hover:scale-105 transition-transform"
+                        />
+                      </a>
                     </td>
                     <td className="border border-gray-700 p-3">
                       {criminal.firstname} {criminal.lastname}
