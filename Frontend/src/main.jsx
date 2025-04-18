@@ -50,6 +50,8 @@ import ViewReports from './components/Admin/ViewReports.jsx';
 import CriminalDatabase from './components/Admin/CriminalDatabase.jsx';
 import AdminComplaints from './components/Admin/AdminComplaints.jsx'
 import MissingHistory from './components/Department/Missing/MissingHistory.jsx';
+import MissingStatusPage from './components/MissingStatus.jsx';
+import CrimeStatusSelectionPage from './components/MainStatus.jsx';
 const Router = createBrowserRouter([
   {
     path: '/',
@@ -106,6 +108,14 @@ const Router = createBrowserRouter([
   {
     path: '/userhistory',
     element: <div><NavBar /> <HistoryPage/><Footer /></div>
+  },
+  {
+    path: '/missingstatuspage',
+    element: <div><NavBar /> <MissingStatusPage/><Footer /></div>
+  },
+  {
+    path: '/mainstatuspage',
+    element: <div><NavBar /> <CrimeStatusSelectionPage/><Footer /></div>
   },
 
 

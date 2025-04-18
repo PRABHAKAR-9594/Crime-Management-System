@@ -51,7 +51,7 @@ export default function Home() {
                 <FontAwesomeIcon icon={faFolderOpen} /> Case Status
               </h3>
               <p className="text-gray-400 mb-4">Check the real-time status of your reported cases and stay informed about their progress.</p>
-              <Link to='/Status'>
+              <Link to='/mainstatuspage'>
               <button className="mt-2 px-4 py-2 text-white bg-[#f62424] rounded transition duration-300 hover:bg-[#df0e0e] font-bold">
                 Click Here
               </button>

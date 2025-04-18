@@ -20,6 +20,7 @@ import { verify_Mobile } from '../Routes/verifyMobile.js';
 import { MissingTakeCase_route } from '../Routes/MissingTakeCase.route.js';
 import { MissingOpenCase_routing } from '../Routes/MissingOpenCase.route.js';
 import { MissingHistory_route } from '../Routes/MissingHistory.route.js';
+import { MissingCrimeStatus_route } from '../Routes/MissingCrimeStatus.route.js';
 dotenv.config();
 
 
@@ -50,7 +51,7 @@ verify_Mobile(app)
 MissingTakeCase_route(app)
 MissingOpenCase_routing(app)
 MissingHistory_route(app)
-
+MissingCrimeStatus_route(app)
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);
 

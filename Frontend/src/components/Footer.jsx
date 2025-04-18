@@ -9,15 +9,15 @@ export default function Footer() {
             <h3 className="text-2xl font-semibold text-gray-300">Crime Management System</h3>
           </div>
           <div className="footer-links flex gap-5 items-center">
-            <a href="#" className="text-gray-300 hover:text-blue-400">Home</a>
-            <a href="#" className="text-gray-300 hover:text-blue-400">About</a>
-            <a href="#" className="text-gray-300 hover:text-blue-400">Privacy Policy</a>
-            <a href="#" className="text-gray-300 hover:text-blue-400">Terms of Service</a>
-            <a href="#" className="text-gray-300 hover:text-blue-400">Contact</a>
+            <a href="/" className="text-gray-300 hover:text-blue-400">Home</a>
+            <a href="/aboutpage" className="text-gray-300 hover:text-blue-400">About</a>
+           
+            <a href="/mainstatuspage" className="text-gray-300 hover:text-blue-400">Status</a>
           </div>
           <div className="footer-contact">
             <p className="text-gray-300">
-              For inquiries, reach us at <a href="mailto:support@cms.com" className="text-blue-400 hover:underline">support@cms.com</a>
+              For inquiries, reach us at <a href="mailto:departmentofcrime4049@gmail.com" className="text-blue-400 hover:underline">
+              departmentofcrime4049@gmail.com</a>
             </p>
           </div>
         </div>
