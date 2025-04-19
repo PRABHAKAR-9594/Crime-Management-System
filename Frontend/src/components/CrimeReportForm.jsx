@@ -5,28 +5,28 @@ import { useNavigate } from 'react-router-dom';
 
 const CrimeReportForm = () => {
     //
-const Username=sessionStorage.getItem('UserName')
-const nevigate=useNavigate()
-     useEffect(()=>{
+    const Username = sessionStorage.getItem('UserName')
+    const nevigate = useNavigate()
+    useEffect(() => {
         if (!Username) {
-          nevigate('/login')
+            nevigate('/login')
         }
-      },[Username]);
+    }, [Username]);
 
     // Add this somewhere at the top of your component (before return)
-const today = new Date();
-const oneYearAgo = new Date();
-oneYearAgo.setFullYear(today.getFullYear() - 1);
+    const today = new Date();
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(today.getFullYear() - 1);
 
-const formatDate = (date) => date.toISOString().split("T")[0];
-const maxDate = formatDate(today);
-const minDate = formatDate(oneYearAgo);
-const [errors, setErrors] = useState({});
+    const formatDate = (date) => date.toISOString().split("T")[0];
+    const maxDate = formatDate(today);
+    const minDate = formatDate(oneYearAgo);
+    const [errors, setErrors] = useState({});
+    const [acknowledgementNumber, setAcknowledgementNumber] = useState('');
 
 
-
-    const Name=sessionStorage.getItem('Name')
-    const Email=sessionStorage.getItem('Email')
+    const Name = sessionStorage.getItem('Name')
+    const Email = sessionStorage.getItem('Email')
     const [alert, setAlert] = useState({ type: '', message: '' });
     const showAlert = (type, message) => {
         setAlert({ type, message });
@@ -94,93 +94,94 @@ const [errors, setErrors] = useState({});
     };
 
 
-const handleFileChange = async (e) => {
-    const { name, files } = e.target; 
-    const file = files[0];  // Get the first selected file
-    const fileType = file?.type;
-    const fileSize = file?.size;
+    const handleFileChange = async (e) => {
+        const { name, files } = e.target;
+        const file = files[0];  // Get the first selected file
+        const fileType = file?.type;
+        const fileSize = file?.size;
 
-    const maxFileSize = 5 * 1024 * 1024; // 5MB
+        const maxFileSize = 5 * 1024 * 1024; // 5MB
 
-    if (fileSize > maxFileSize) {
-        alert("The file size is too large. Please upload a file smaller than 5MB.");
-        return;
-    }
+        if (fileSize > maxFileSize) {
+            alert("The file size is too large. Please upload a file smaller than 5MB.");
+            return;
+        }
 
-    // Check if a file was selected
-    if (!file) return;
+        // Check if a file was selected
+        if (!file) return;
 
-    // Determine if the file is an image or a video based on file type
-    const isVideo = file.type.startsWith('video/');  // Check if it's a video
-    const isImage = file.type.startsWith('image/');  // Check if it's an image
+        // Determine if the file is an image or a video based on file type
+        const isVideo = file.type.startsWith('video/');  // Check if it's a video
+        const isImage = file.type.startsWith('image/');  // Check if it's an image
 
-    if (!isImage && !isVideo) {
-        alert('Please upload a valid image or video file');
-        return;
-    }
+        if (!isImage && !isVideo) {
+            alert('Please upload a valid image or video file');
+            return;
+        }
 
-    // Prepare the form data to send to Cloudinary
-    const formData = new FormData();
-    formData.append('file', file); // Attach the file
-    formData.append('upload_preset', import.meta.env.VITE_REACT_UPLOAD_PRESET); // Replace with your upload preset name
-    formData.append('cloud_name', import.meta.env.VITE_REACT_CLOUD_NAME); // Replace with your Cloudinary Cloud Name
-    console.log("inside ", formData);
-
-    try {
-        // Determine the appropriate Cloudinary endpoint
-        const cloudinaryEndpoint = isVideo
-            ? 'https://api.cloudinary.com/v1_1/deog4dkfc/video/upload'  // Video upload endpoint
-            : 'https://api.cloudinary.com/v1_1/deog4dkfc/image/upload'; // Image upload endpoint
-
+        // Prepare the form data to send to Cloudinary
+        const formData = new FormData();
+        formData.append('file', file); // Attach the file
+        formData.append('upload_preset', import.meta.env.VITE_REACT_UPLOAD_PRESET); // Replace with your upload preset name
+        formData.append('cloud_name', import.meta.env.VITE_REACT_CLOUD_NAME); // Replace with your Cloudinary Cloud Name
         console.log("inside ", formData);
-        // Send the file to Cloudinary
-        const response = await axios.post(cloudinaryEndpoint, formData);
 
-        // Get the URL of the uploaded file (image or video)
-        const filePath = response.data.secure_url;
+        try {
+            // Determine the appropriate Cloudinary endpoint
+            const cloudinaryEndpoint = isVideo
+                ? 'https://api.cloudinary.com/v1_1/deog4dkfc/video/upload'  // Video upload endpoint
+                : 'https://api.cloudinary.com/v1_1/deog4dkfc/image/upload'; // Image upload endpoint
 
-        // Update the state with the file URL (string path)
-        setFormData((prev) => {
-            const [parent, child] = name.split('.');
-            return {
-                ...prev,
-                [parent]: {
-                    ...prev[parent],
-                    [child]: filePath // Store the file URL, not the file object
-                }
-            };
-        });
-    } catch (error) {
-        console.error('Error uploading file:', error);
-    }
-};
+            console.log("inside ", formData);
+            // Send the file to Cloudinary
+            const response = await axios.post(cloudinaryEndpoint, formData);
 
-const generateAcknowledgementNumber = () => {
-    const date = new Date();
-    const prefix = 'CMS';
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure 2-digit month
-    const day = String(date.getDate()).padStart(2, '0'); // Ensure 2-digit day
-    const hours = String(date.getHours()).padStart(2, '0'); // Ensure 2-digit hour
-    const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure 2-digit minute
-    const seconds = String(date.getSeconds()).padStart(2, '0'); // Ensure 2-digit second
+            // Get the URL of the uploaded file (image or video)
+            const filePath = response.data.secure_url;
 
-    const acknowledgementNumber = `${prefix}${year}${month}${day}${hours}${minutes}${seconds}`;
-    return acknowledgementNumber;
-};
+            // Update the state with the file URL (string path)
+            setFormData((prev) => {
+                const [parent, child] = name.split('.');
+                return {
+                    ...prev,
+                    [parent]: {
+                        ...prev[parent],
+                        [child]: filePath // Store the file URL, not the file object
+                    }
+                };
+            });
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    };
+
+    const generateAcknowledgementNumber = () => {
+        const date = new Date();
+        const prefix = 'CMS';
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure 2-digit month
+        const day = String(date.getDate()).padStart(2, '0'); // Ensure 2-digit day
+        const hours = String(date.getHours()).padStart(2, '0'); // Ensure 2-digit hour
+        const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure 2-digit minute
+        const seconds = String(date.getSeconds()).padStart(2, '0'); // Ensure 2-digit second
+
+        const acknowledgementNumber = `${prefix}${year}${month}${day}${hours}${minutes}${seconds}`;
+        return acknowledgementNumber;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const ackNumber = generateAcknowledgementNumber();
         console.log(ackNumber);
-    setFormData(prev => ({
-        ...prev,
-        acknowledgeNumber: ackNumber // Add the generated acknowledgement number
-    }));
+        setFormData(prev => ({
+            ...prev,
+            acknowledgeNumber: ackNumber // Add the generated acknowledgement number
+        }));
+        setAcknowledgementNumber(ackNumber);    
         console.log(formData);
         try {
-            const Subject=`Crime Report Submission Successful – Acknowledgment No. ${ackNumber}`
-            const Message=`
+            const Subject = `Crime Report Submission Successful – Acknowledgment No. ${ackNumber}`
+            const Message = `
 Dear ${Name},
 
 We have successfully received your crime report. Your acknowledgment number is ${ackNumber}. Please keep this number for future reference.
@@ -206,22 +207,24 @@ Crime Reporting System Team
 
 
 
-            const response = await axios.post('http://localhost:8080/CrimeRegForm ', {...formData,
-                acknowledgeNumber:ackNumber}, {
-                headers: { 
-                    'Content-Type': 'application/json', 
+            const response = await axios.post('http://localhost:8080/CrimeRegForm ', {
+                ...formData,
+                acknowledgeNumber: ackNumber
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
                     'jwt-token': sessionStorage.getItem("Token") // Add token here
                 }
-        
+
             });
 
             await axios.post('http://localhost:8080/sendGmail', {
-                gmail:Email,
+                gmail: Email,
                 text: Message,
                 Subject: Subject,
-              });
-              showAlert('success', 'Crime Form Submitted Successful! ');
-              
+            });
+            showAlert('success', 'Crime Form Submitted Successful! ');
+
 
             console.log('Success:', response.data);
         } catch (error) {
@@ -236,7 +239,7 @@ Crime Reporting System Team
                 <h1 className="text-3xl font-bold mb-6 text-red-500 text-center">Crime Reporting Form</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label className="block mb-2">
+                    <label className="block mb-2">
                         Username:
                         <input
                             type="text"
@@ -250,271 +253,277 @@ Crime Reporting System Team
                     </label>
 
                     <label className="block">
-    Crime Type:
-    <select
-        name="crimetype"
-        value={formData.crimetype}
-        onChange={handleChange}
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-        required
-    >
-        <option value="">Select a crime type</option>
-        <option value="Theft">Theft</option>
-         <option value="Fraud">Cybercrime</option>
-        <option value="Murder">Murder</option>
-
-      
-        {/* Add more crime types as needed */}
-    </select>
-</label>
+                        Crime Type:
+                        <select
+                            name="crimetype"
+                            value={formData.crimetype}
+                            onChange={handleChange}
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                        >
+                            <option value="">Select a crime type</option>
+                            <option value="Theft">Theft</option>
+                            <option value="Fraud">Cybercrime</option>
+                            <option value="Murder">Murder</option>
 
 
-<label className="block col-span-2">
-    Description:
-    <textarea
-        name="description"
-        value={formData.description}
-        onChange={handleChange}
-        placeholder="Describe the crime in detail"
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-        required
-    />
-</label>
+                            {/* Add more crime types as needed */}
+                        </select>
+                    </label>
 
-<label className="block">
-    Incident Date:
-    <input
-        type="date"
-        name="incidentDate"
-        value={formData.incidentDate}
-        onChange={handleChange}
-        min={minDate}
-        max={maxDate}
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-        required
-    />
-</label>
 
-<label className="block">
-    Incident Time:
-    <input
-        type="time"
-        name="incidentTime"
-        value={formData.incidentTime}
-        onChange={handleChange}
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-        required
-    />
-</label>
+                    <label className="block col-span-2">
+                        Description:
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Describe the crime in detail"
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                        />
+                    </label>
+
+                    <label className="block">
+                        Incident Date:
+                        <input
+                            type="date"
+                            name="incidentDate"
+                            value={formData.incidentDate}
+                            onChange={handleChange}
+                            min={minDate}
+                            max={maxDate}
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                        />
+                    </label>
+
+                    <label className="block">
+                        Incident Time:
+                        <input
+                            type="time"
+                            name="incidentTime"
+                            value={formData.incidentTime}
+                            onChange={handleChange}
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                        />
+                    </label>
 
                 </div>
 
                 <h2 className="text-lg font-semibold mt-4">Incident Location</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label className="block">
-                Address:
-    <input 
-      type="text"
-      name="incidentLocation.address"
-      value={formData.incidentLocation.address}
-      onChange={(e) => {
-        // Remove special characters and limit to 30 characters
-        let inputValue = e.target.value.replace(/[^a-zA-Z0-9 ]/g, '').slice(0, 50);
-
-        handleChange({ target: { name: e.target.name, value: inputValue } });
-      }}
-      placeholder="Street, Area"
-      className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-      required
-      minLength={5}
-      maxLength={30}
-    />
-  </label>
-
-
-  <label className="block">
-  City:
-  <input 
-    type="text"
-    name="incidentLocation.city"
-    value={formData.incidentLocation.city}
-    onChange={(e) => {
-      let inputValue = e.target.value
-        .replace(/[^a-zA-Z]/g, '')     // Keep only alphabets
-        .slice(0, 20)                  // Enforce max length
-        .toLowerCase();               // Convert to lowercase
-      
-      // Capitalize first letter
-      if (inputValue.length > 0) {
-        inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
-      }
-
-      handleChange({ target: { name: e.target.name, value: inputValue } });
-    }}
-    placeholder="City name"
-    className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-    required
-    minLength={3}
-    maxLength={30}
-  />
-</label>
-
-<label className="block">
-  State:
-  <input 
-    type="text"
-    name="incidentLocation.state"
-    value={formData.incidentLocation.state}
-    onChange={(e) => {
-      let inputValue = e.target.value
-        .replace(/[^a-zA-Z]/g, '')     // Keep only alphabets
-        .slice(0, 30)                  // Enforce max length
-        .toLowerCase();               // Convert to lowercase
-      
-      // Capitalize first letter
-      if (inputValue.length > 0) {
-        inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
-      }
-
-      handleChange({ target: { name: e.target.name, value: inputValue } });
-    }}
-    placeholder="State name"
-    className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-    required
-    minLength={3}
-    maxLength={30}
-  />
-</label>
-    
                     <label className="block">
-    Pincode:
-    <input
-        type="text"
-        name="incidentLocation.pincode"
-        value={formData.incidentLocation.pincode}
-        onChange={handleChange}
-        onInput={(e) => {
-          // Allow only numeric input
-          e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                        Address:
+                        <input
+                            type="text"
+                            name="incidentLocation.address"
+                            value={formData.incidentLocation.address}
+                            onChange={(e) => {
+                                // Remove special characters and limit to 30 characters
+                                let inputValue = e.target.value.replace(/[^a-zA-Z0-9 ]/g, '').slice(0, 50);
 
-          // Limit to 6 digits
-          if (e.target.value.length > 6) {
-            e.target.value = e.target.value.slice(0, 6);
-          }
+                                handleChange({ target: { name: e.target.name, value: inputValue } });
+                            }}
+                            placeholder="Street, Area"
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                            minLength={5}
+                            maxLength={30}
+                        />
+                    </label>
 
-          // Update form data
-          handleChange(e);
-        }}
-        pattern="\d{6}"
-        title="Pincode must be a 6 digit number"
-        maxLength={6}
-        placeholder="6-digit Pincode"
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-        required
-    />
-</label>
+
+                    <label className="block">
+                        City:
+                        <input
+                            type="text"
+                            name="incidentLocation.city"
+                            value={formData.incidentLocation.city}
+                            onChange={(e) => {
+                                let inputValue = e.target.value
+                                    .replace(/[^a-zA-Z]/g, '')     // Keep only alphabets
+                                    .slice(0, 20)                  // Enforce max length
+                                    .toLowerCase();               // Convert to lowercase
+
+                                // Capitalize first letter
+                                if (inputValue.length > 0) {
+                                    inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+                                }
+
+                                handleChange({ target: { name: e.target.name, value: inputValue } });
+                            }}
+                            placeholder="City name"
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                            minLength={3}
+                            maxLength={30}
+                        />
+                    </label>
+
+                    <label className="block">
+                        State:
+                        <input
+                            type="text"
+                            name="incidentLocation.state"
+                            value={formData.incidentLocation.state}
+                            onChange={(e) => {
+                                let inputValue = e.target.value
+                                    .replace(/[^a-zA-Z]/g, '')     // Keep only alphabets
+                                    .slice(0, 30)                  // Enforce max length
+                                    .toLowerCase();               // Convert to lowercase
+
+                                // Capitalize first letter
+                                if (inputValue.length > 0) {
+                                    inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+                                }
+
+                                handleChange({ target: { name: e.target.name, value: inputValue } });
+                            }}
+                            placeholder="State name"
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                            minLength={3}
+                            maxLength={30}
+                        />
+                    </label>
+
+                    <label className="block">
+                        Pincode:
+                        <input
+                            type="text"
+                            name="incidentLocation.pincode"
+                            value={formData.incidentLocation.pincode}
+                            onChange={handleChange}
+                            onInput={(e) => {
+                                // Allow only numeric input
+                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+                                // Limit to 6 digits
+                                if (e.target.value.length > 6) {
+                                    e.target.value = e.target.value.slice(0, 6);
+                                }
+
+                                // Update form data
+                                handleChange(e);
+                            }}
+                            pattern="\d{6}"
+                            title="Pincode must be a 6 digit number"
+                            maxLength={6}
+                            placeholder="6-digit Pincode"
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                            required
+                        />
+                    </label>
 
                 </div>
 
                 <h2 className="text-lg font-semibold mt-4">Evidence (optional)</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label className="block">
-            Image File :
-            <input 
-                type="file" 
-                name="evidence.imageFile" 
-                accept="image/*" 
-                onChange={handleFileChange} 
-                className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" 
-            />
-        </label>
+                    <label className="block">
+                        Image File :
+                        <input
+                            type="file"
+                            name="evidence.imageFile"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                        />
+                    </label>
 
-        <label className="block">
-            Video File :
-            <input 
-                type="file" 
-                name="evidence.videoFile" 
-                accept="video/*" 
-                onChange={handleFileChange} 
-                className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" 
-            />
-        </label>
+                    <label className="block">
+                        Video File :
+                        <input
+                            type="file"
+                            name="evidence.videoFile"
+                            accept="video/*"
+                            onChange={handleFileChange}
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                        />
+                    </label>
                 </div>
 
                 <h2 className="text-lg font-semibold mt-4">Suspect Details (optional)</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label className="block">
-    Name:
-    <input 
-        type="text"
-        name="suspectDetails.name"
-        value={formData.suspectDetails.name}
-        onChange={(e) => {
-            let inputValue = e.target.value;
+                    <label className="block">
+                        Name:
+                        <input
+                            type="text"
+                            name="suspectDetails.name"
+                            value={formData.suspectDetails.name}
+                            onChange={(e) => {
+                                let inputValue = e.target.value;
 
-            // Remove numbers and special characters except for spaces
-            inputValue = inputValue.replace(/[^a-zA-Z ]/g, '');
+                                // Remove numbers and special characters except for spaces
+                                inputValue = inputValue.replace(/[^a-zA-Z ]/g, '');
 
-            // Capitalize the first letter of each word and make the rest lowercase
-            inputValue = inputValue
-                .split(' ')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                .join(' ');
+                                // Capitalize the first letter of each word and make the rest lowercase
+                                inputValue = inputValue
+                                    .split(' ')
+                                    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                                    .join(' ');
 
-            // Enforce max length of 25
-            if (inputValue.length > 25) {
-                inputValue = inputValue.slice(0, 25);
-            }
+                                // Enforce max length of 25
+                                if (inputValue.length > 25) {
+                                    inputValue = inputValue.slice(0, 25);
+                                }
 
-            handleChange({ target: { name: e.target.name, value: inputValue } });
+                                handleChange({ target: { name: e.target.name, value: inputValue } });
 
-            // Name validation
-            if (inputValue && (inputValue.length < 5 || inputValue.length > 25)) {
-                setErrors(prev => ({ ...prev, name: "Name must be between 5 and 25 characters." }));
-            } else {
-                setErrors(prev => ({ ...prev, name: "" }));
-            }
-        }}
-        placeholder="Suspect's name"
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-    />
-    {errors?.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
-</label>
+                                // Name validation
+                                if (inputValue && (inputValue.length < 5 || inputValue.length > 25)) {
+                                    setErrors(prev => ({ ...prev, name: "Name must be between 5 and 25 characters." }));
+                                } else {
+                                    setErrors(prev => ({ ...prev, name: "" }));
+                                }
+                            }}
+                            placeholder="Suspect's name"
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                        />
+                        {errors?.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+                    </label>
 
-<label className="block col-span-2">
-    Description:
-    <textarea 
-        name="suspectDetails.description" 
-        value={formData.suspectDetails.description} 
-        onChange={(e) => {
-            handleChange(e);
+                    <label className="block col-span-2">
+                        Description:
+                        <textarea
+                            name="suspectDetails.description"
+                            value={formData.suspectDetails.description}
+                            onChange={(e) => {
+                                handleChange(e);
 
-            const value = e.target.value;
+                                const value = e.target.value;
 
-            if (value && (value.length < 5 || value.length > 50)) {
-                setErrors(prev => ({ ...prev, description: "Description must be between 5 and 50 characters." }));
-            } else {
-                setErrors(prev => ({ ...prev, description: "" }));
-            }
-        }} 
-        placeholder="Describe suspect appearance, behavior, etc." 
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" 
-    />
-    {errors?.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
-</label>
-</div>
-   
+                                if (value && (value.length < 5 || value.length > 50)) {
+                                    setErrors(prev => ({ ...prev, description: "Description must be between 5 and 50 characters." }));
+                                } else {
+                                    setErrors(prev => ({ ...prev, description: "" }));
+                                }
+                            }}
+                            placeholder="Describe suspect appearance, behavior, etc."
+                            className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+                        />
+                        {errors?.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
+                    </label>
+                </div>
+
 
                 <button type="submit" className="mt-4 bg-red-500 text-white rounded p-2 hover:bg-red-600">Submit</button>
                 {alert?.message && (
-                <div className={`absolute top-2 right-2 max-w-xs z-50 p-4 rounded ${alert?.type === 'success' ? 'bg-green-500' : 'bg-red-600'}`}>
-                    <p className="text-white">{alert.message}</p>
-                </div>
-            )}
+                    <div className={`absolute top-2 right-2 max-w-xs z-50 p-4 rounded ${alert?.type === 'success' ? 'bg-green-500' : 'bg-red-600'}`}>
+                        <p className="text-white">{alert.message}</p>
+                    </div>
+                )}
+
+                {acknowledgementNumber && (
+                    <div className="mt-6 text-center text-yellow-400 font-bold">
+                        Acknowledgment Number: {acknowledgementNumber}
+                    </div>
+                )}
             </form>
-           
+
         </div>
-        
+
     );
 };
 

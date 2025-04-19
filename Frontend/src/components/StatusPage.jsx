@@ -3,9 +3,10 @@ import { useState } from "react";
 
 const statusStages = [
   { name: "Open", value: 33, color: "bg-yellow-500" },
-  { name: "Under Investigation", value: 66, color: "bg-blue-500" },
+  { name: "Under investigation", value: 66, color: "bg-blue-500" },
   { name: "Closed", value: 100, color: "bg-green-500" }
 ];
+
 
 export default function StatusPage() {
   const [ackNumber, setAckNumber] = useState("");
