@@ -33,6 +33,7 @@ import MissingOfficerReg from './components/Department/Missing/MissingOfficerReg
 import HistoryPage from './components/History.jsx';
 import ForgetPassword from './components/ForgetPassword.jsx';
 import TakeCase from './components/Department/Theft/TakeCase.jsx';
+import MissingStatus from '../src/components/MissingStatus.jsx'
 
 //Take case 
 
@@ -48,9 +49,8 @@ import AdminNavbar from './components/Admin/AdminNavbar.jsx';
 import ViewDepartment from './components/Admin/ViewDepartment.jsx';
 import ViewReports from './components/Admin/ViewReports.jsx';
 import CriminalDatabase from './components/Admin/CriminalDatabase.jsx';
-import AdminComplaints from './components/Admin/AdminComplaints.jsx'
+import AdminMissingReport from './components/Admin/AdminMissingReport.jsx'
 import MissingHistory from './components/Department/Missing/MissingHistory.jsx';
-import MissingStatusPage from './components/MissingStatus.jsx';
 import CrimeStatusSelectionPage from './components/MainStatus.jsx';
 const Router = createBrowserRouter([
   {
@@ -111,7 +111,7 @@ const Router = createBrowserRouter([
   },
   {
     path: '/missingstatuspage',
-    element: <div><NavBar /> <MissingStatusPage/><Footer /></div>
+    element: <div><NavBar /> <MissingStatus/><Footer /></div>
   },
   {
     path: '/mainstatuspage',
@@ -222,7 +222,7 @@ const Router = createBrowserRouter([
   },
   {
     path: '/admin/complaints',
-    element: <div> <AdminNavbar />< AdminComplaints /><Footer /></div>
+    element: <div> <AdminNavbar />< AdminMissingReport /><Footer /></div>
   },
 
 

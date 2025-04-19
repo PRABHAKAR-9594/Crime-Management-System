@@ -13,6 +13,17 @@ const nevigate=useNavigate()
         }
       },[Username]);
 
+    // Add this somewhere at the top of your component (before return)
+const today = new Date();
+const oneYearAgo = new Date();
+oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+const formatDate = (date) => date.toISOString().split("T")[0];
+const maxDate = formatDate(today);
+const minDate = formatDate(oneYearAgo);
+const [errors, setErrors] = useState({});
+
+
 
     const Name=sessionStorage.getItem('Name')
     const Email=sessionStorage.getItem('Email')
@@ -209,7 +220,8 @@ Crime Reporting System Team
                 text: Message,
                 Subject: Subject,
               });
-              showAlert('success', 'Crime Form Submitted Successful!');
+              showAlert('success', 'Crime Form Submitted Successful! ');
+              
 
             console.log('Success:', response.data);
         } catch (error) {
@@ -247,16 +259,9 @@ Crime Reporting System Team
         required
     >
         <option value="">Select a crime type</option>
-<option value="Theft">Theft</option>
-<option value="Assault">Assault</option>
-<option value="Fraud">Fraud</option>
-<option value="Homicide">Homicide</option>
-<option value="Kidnapping">Kidnapping</option>
-<option value="CyberCrime">Cyber Crime</option>
-<option value="DrugTrafficking">Drug Trafficking</option>
-<option value="Robbery">Robbery</option>
-<option value="Vandalism">Vandalism</option>
-<option value="HumanTrafficking">Human Trafficking</option>
+        <option value="Theft">Theft</option>
+         <option value="Fraud">Cybercrime</option>
+        <option value="Murder">Murder</option>
 
       
         {/* Add more crime types as needed */}
@@ -264,88 +269,123 @@ Crime Reporting System Team
 </label>
 
 
-                    <label className="block col-span-2">
-                        Description:
-                        <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Describe the crime in detail" className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
-                    </label>
-
-                    <label className="block">
-                        Incident Date:
-                        <input type="date" name="incidentDate" value={formData.incidentDate} onChange={handleChange} className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
-                    </label>
-
-                    <label className="block">
-                        Incident Time:
-                        <input type="time" name="incidentTime" value={formData.incidentTime} onChange={handleChange} className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" required />
-                    </label>
-                </div>
-
-                <h2 className="text-lg font-semibold mt-4">Incident Location</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label className="block">
-    Address:
-    <input 
-        type="text"
-        name="incidentLocation.address"
-        value={formData.incidentLocation.address}
-        onChange={(e) => {
-            // Remove special characters
-            let inputValue = e.target.value.replace(/[^a-zA-Z0-9 ]/g, '');
-
-            // Update form data with the cleaned value
-            handleChange({ target: { name: e.target.name, value: inputValue } });
-        }}
-        placeholder="Street, Area"
-        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
-        required
-    />
-</label>
-
-
-                    <label className="block">
-    City:
-    <input 
-        type="text"
-        name="incidentLocation.city"
-        value={formData.incidentLocation.city}
-        onChange={(e) => {
-            // Remove spaces and numbers, keep only alphabets
-            let inputValue = e.target.value.replace(/[^a-zA-Z]/g, '').toLowerCase();
-
-            // Capitalize first letter
-            inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
-
-            // Update form data with the formatted value
-            handleChange({ target: { name: e.target.name, value: inputValue } });
-        }}
-        placeholder="City name"
+<label className="block col-span-2">
+    Description:
+    <textarea
+        name="description"
+        value={formData.description}
+        onChange={handleChange}
+        placeholder="Describe the crime in detail"
         className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
         required
     />
 </label>
 
 <label className="block">
-    State:
-    <input 
-        type="text"
-        name="incidentLocation.state"
-        value={formData.incidentLocation.state}
-        onChange={(e) => {
-            // Remove spaces and numbers, keep only alphabets
-            let inputValue = e.target.value.replace(/[^a-zA-Z]/g, '').toLowerCase();
-
-            // Capitalize first letter
-            inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
-
-            // Update form data with the formatted value
-            handleChange({ target: { name: e.target.name, value: inputValue } });
-        }}
-        placeholder="State name"
+    Incident Date:
+    <input
+        type="date"
+        name="incidentDate"
+        value={formData.incidentDate}
+        onChange={handleChange}
+        min={minDate}
+        max={maxDate}
         className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
         required
     />
 </label>
 
+<label className="block">
+    Incident Time:
+    <input
+        type="time"
+        name="incidentTime"
+        value={formData.incidentTime}
+        onChange={handleChange}
+        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+        required
+    />
+</label>
+
+                </div>
+
+                <h2 className="text-lg font-semibold mt-4">Incident Location</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label className="block">
+                Address:
+    <input 
+      type="text"
+      name="incidentLocation.address"
+      value={formData.incidentLocation.address}
+      onChange={(e) => {
+        // Remove special characters and limit to 30 characters
+        let inputValue = e.target.value.replace(/[^a-zA-Z0-9 ]/g, '').slice(0, 50);
+
+        handleChange({ target: { name: e.target.name, value: inputValue } });
+      }}
+      placeholder="Street, Area"
+      className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+      required
+      minLength={5}
+      maxLength={30}
+    />
+  </label>
+
+
+  <label className="block">
+  City:
+  <input 
+    type="text"
+    name="incidentLocation.city"
+    value={formData.incidentLocation.city}
+    onChange={(e) => {
+      let inputValue = e.target.value
+        .replace(/[^a-zA-Z]/g, '')     // Keep only alphabets
+        .slice(0, 20)                  // Enforce max length
+        .toLowerCase();               // Convert to lowercase
+      
+      // Capitalize first letter
+      if (inputValue.length > 0) {
+        inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+      }
+
+      handleChange({ target: { name: e.target.name, value: inputValue } });
+    }}
+    placeholder="City name"
+    className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+    required
+    minLength={3}
+    maxLength={30}
+  />
+</label>
+
+<label className="block">
+  State:
+  <input 
+    type="text"
+    name="incidentLocation.state"
+    value={formData.incidentLocation.state}
+    onChange={(e) => {
+      let inputValue = e.target.value
+        .replace(/[^a-zA-Z]/g, '')     // Keep only alphabets
+        .slice(0, 30)                  // Enforce max length
+        .toLowerCase();               // Convert to lowercase
+      
+      // Capitalize first letter
+      if (inputValue.length > 0) {
+        inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+      }
+
+      handleChange({ target: { name: e.target.name, value: inputValue } });
+    }}
+    placeholder="State name"
+    className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
+    required
+    minLength={3}
+    maxLength={30}
+  />
+</label>
+    
                     <label className="block">
     Pincode:
     <input
@@ -376,10 +416,10 @@ Crime Reporting System Team
 
                 </div>
 
-                <h2 className="text-lg font-semibold mt-4">Evidence</h2>
+                <h2 className="text-lg font-semibold mt-4">Evidence (optional)</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <label className="block">
-            Image File (Max size: 5MB):
+            Image File :
             <input 
                 type="file" 
                 name="evidence.imageFile" 
@@ -390,7 +430,7 @@ Crime Reporting System Team
         </label>
 
         <label className="block">
-            Video File (Max size: 5MB):
+            Video File :
             <input 
                 type="file" 
                 name="evidence.videoFile" 
@@ -401,7 +441,7 @@ Crime Reporting System Team
         </label>
                 </div>
 
-                <h2 className="text-lg font-semibold mt-4">Suspect Details</h2>
+                <h2 className="text-lg font-semibold mt-4">Suspect Details (optional)</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <label className="block">
     Name:
@@ -417,24 +457,53 @@ Crime Reporting System Team
 
             // Capitalize the first letter of each word and make the rest lowercase
             inputValue = inputValue
-                .split(' ') // Split by space
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
-                .join(' '); // Join them back with a single space
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join(' ');
 
-            // Update form data with the cleaned and formatted value
+            // Enforce max length of 25
+            if (inputValue.length > 25) {
+                inputValue = inputValue.slice(0, 25);
+            }
+
             handleChange({ target: { name: e.target.name, value: inputValue } });
+
+            // Name validation
+            if (inputValue && (inputValue.length < 5 || inputValue.length > 25)) {
+                setErrors(prev => ({ ...prev, name: "Name must be between 5 and 25 characters." }));
+            } else {
+                setErrors(prev => ({ ...prev, name: "" }));
+            }
         }}
         placeholder="Suspect's name"
         className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white"
     />
+    {errors?.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
 </label>
 
+<label className="block col-span-2">
+    Description:
+    <textarea 
+        name="suspectDetails.description" 
+        value={formData.suspectDetails.description} 
+        onChange={(e) => {
+            handleChange(e);
 
-                    <label className="block col-span-2">
-                        Description:
-                        <textarea name="suspectDetails.description" value={formData.suspectDetails.description} onChange={handleChange} placeholder="Describe suspect appearance, behavior, etc." className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" />
-                    </label>
-                </div>
+            const value = e.target.value;
+
+            if (value && (value.length < 5 || value.length > 50)) {
+                setErrors(prev => ({ ...prev, description: "Description must be between 5 and 50 characters." }));
+            } else {
+                setErrors(prev => ({ ...prev, description: "" }));
+            }
+        }} 
+        placeholder="Describe suspect appearance, behavior, etc." 
+        className="mt-1 w-full border border-red-500 rounded p-2 bg-gray-800 text-white" 
+    />
+    {errors?.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
+</label>
+</div>
+   
 
                 <button type="submit" className="mt-4 bg-red-500 text-white rounded p-2 hover:bg-red-600">Submit</button>
                 {alert?.message && (

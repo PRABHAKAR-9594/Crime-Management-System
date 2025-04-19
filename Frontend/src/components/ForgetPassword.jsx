@@ -64,7 +64,7 @@ function ForgetPassword() {
             }
         } catch (error) {
             console.error("Error", error);
-            showMessage("Internal server error. Please try later.", "error");
+            showMessage("Email or mobile number not found.", "error");
         }
     };
 

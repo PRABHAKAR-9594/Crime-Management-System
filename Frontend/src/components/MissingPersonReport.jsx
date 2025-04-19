@@ -276,11 +276,76 @@ Crime Reporting System Team
                     <h2 className="text-3xl font-bold text-center mb-6">Report a Missing Person</h2>
                     <form onSubmit={handleSubmit} className="space-y-4 grid grid-cols-2 gap-6">
 
-                        <input type="text" name="userame" placeholder="Your Username" value={formData.username} onChange={handleChange} className="mt-4 w-full h-[50px] bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+                        <input type="text" name="userame" placeholder="Your Username" value={formData.username} onChange={handleChange} className="p-4 mt-4 w-full h-[50px] bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
 
-                        <input type="text" name="fullName" placeholder="Full Name" value={formData.missingPerson.fullName} onChange={(e) => handleNestedChange(e, "missingPerson")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+                        <input
+  type="text"
+  name="fullName"
+  placeholder="Name"
+  value={formData.missingPerson.fullName}
+  onChange={(e) => {
+    // Remove digits and only allow letters and spaces
+    const lettersOnly = e.target.value.replace(/[^A-Za-z ]/g, '');
 
-                        <input type="number" name="age" placeholder="Age" value={formData.missingPerson.age} onChange={(e) => handleNestedChange(e, "missingPerson")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+    // Capitalize first letter of each word
+    const transformedValue = lettersOnly
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+
+    handleNestedChange(
+      { target: { name: 'fullName', value: transformedValue } },
+      'missingPerson'
+    );
+  }}
+  onBlur={() => {
+    const value = formData.missingPerson.fullName;
+    if (value.length < 3) {
+      setError('Name must be at least 3 characters.');
+    } else if (value.length > 20) {
+      setError('Name must be less than or equal to 20 characters.');
+    } else if (!/^[A-Za-z ]+$/.test(value)) {
+      setError('Only letters and spaces allowed.');
+    } else if (/\s{2,}/.test(value)) {
+      setError('Only one space allowed between words.');
+    } else {
+      setError('');
+    }
+  }}
+  className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+  required
+  minLength={3}
+  maxLength={20}
+/>
+
+
+
+
+<input
+  type="number"
+  name="age"
+  placeholder="Age"
+  value={formData.missingPerson.age}
+  onChange={(e) => handleNestedChange(e, "missingPerson")}
+  className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+  required
+  min="1" // Minimum age must be at least 1
+  max="100" // Maximum age allowed is 100
+  step="1" // Only whole numbers
+  title="Please enter a valid age between 1 and 100"
+  onInput={(e) => {
+    // Restrict input to a maximum of 3 digits
+    const value = e.target.value;
+    if (value.length > 3) {
+      e.target.value = value.slice(0, 3); // Truncate to the first 3 digits
+    }
+    if (value.startsWith('-') || value > 100 || value < 1) {
+      e.target.setCustomValidity('Please enter a valid age between 1 and 100');
+    } else {
+      e.target.setCustomValidity('');
+    }
+  }}
+/>
+
 
                         <input type="file" accept="image/*"
                         name="evidence.imageFile" 
@@ -288,12 +353,80 @@ Crime Reporting System Team
                         className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
 
 
-                        <input type="text" name="contact" placeholder="Contact Number" value={formData.missingPerson.contact} onChange={(e) => handleNestedChange(e, "missingPerson")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
-                        <input type="text" name="location" placeholder="Last Seen Location" value={formData.lastSeenDetails.location} onChange={(e) => handleNestedChange(e, "lastSeenDetails")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+<div className="flex items-center">
+  <span className="bg-gray-800 text-white p-3 rounded-l border border-red-500 select-none">+91</span>
+  <input
+    type="text"
+    name="contact"
+    placeholder="Contact Number"
+    value={formData.missingPerson.contact}
+    onChange={(e) => handleNestedChange(e, "missingPerson")}
+    className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-r focus:outline-none focus:ring-2 focus:ring-red-600"
+    required
+    maxLength={10} // Ensure the user only enters 10 digits
+    pattern="^[0-9]{10}$" // Validates the input as exactly 10 digits
+    title="Phone number should contain exactly 10 digits"
+    onInput={(e) => {
+      let value = e.target.value.replace(/[^0-9]/g, ''); // Allow only numbers
 
-                        <input type="text" name="pincode" placeholder="Pincode" value={formData.lastSeenDetails.pincode} onChange={(e) => handleNestedChange(e, "lastSeenDetails")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+      // Limit the number of digits to 10
+      if (value.length > 10) {
+        value = value.slice(0, 10);
+      }
 
-                        <input type="date" name="date" value={formData.lastSeenDetails.date} onChange={(e) => handleNestedChange(e, "lastSeenDetails")} className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600" required />
+      // Update the input field value
+      e.target.value = value;
+
+      // Update the form data
+      handleNestedChange(e, "missingPerson");
+    }}
+  />
+</div>
+
+<input
+  type="text"
+  name="location"
+  placeholder="Last Seen Location"
+  value={formData.lastSeenDetails.location}
+  onChange={(e) => handleNestedChange(e, "lastSeenDetails")}
+  className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+  required
+  minLength={5}
+  maxLength={30}
+  pattern=".{5,30}"
+  title="Location must be between 5 and 30 characters"
+/>
+
+
+<input
+  type="text"
+  name="pincode"
+  placeholder="Pincode"
+  value={formData.lastSeenDetails.pincode}
+  onChange={(e) => handleNestedChange(e, "lastSeenDetails")}
+  className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+  required
+  maxLength={6}
+  pattern="\d{6}"
+  title="Pincode must be exactly 6 digits"
+  onInput={(e) => {
+    // Remove all non-numeric characters
+    e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
+  }}
+/>
+
+
+<input
+  type="date"
+  name="date"
+  value={formData.lastSeenDetails.date}
+  onChange={(e) => handleNestedChange(e, "lastSeenDetails")}
+  className="p-3 w-full bg-gray-800 text-white border border-red-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+  required
+  min={new Date(new Date().setFullYear(new Date().getFullYear() - 1)).toISOString().split('T')[0]}
+  max={new Date().toISOString().split('T')[0]}
+/>
+
                         <button type="submit" className="col-span-2 p-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition">Report Missing Person</button>
                     </form>{formSubmitted &&
                     <div className="mt-6 text-center text-white text-lg font-bold">
