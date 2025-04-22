@@ -46,8 +46,8 @@ import OpenCase from './components/Department/OpenCase.jsx';
 import DHistory from './components/Department/DHistory.jsx';
 import AdminHome from './components/Admin/AdminHome.jsx';
 import AdminNavbar from './components/Admin/AdminNavbar.jsx';
-import ViewDepartment from './components/Admin/ViewDepartment.jsx';
-import ViewReports from './components/Admin/ViewReports.jsx';
+import AdminViewUsers from './components/Admin/AdminViewUsers.jsx';
+import AdminCrimeDetails from './components/Admin/AdminCrimeDetails.jsx';
 import CriminalDatabase from './components/Admin/CriminalDatabase.jsx';
 import AdminMissingReport from './components/Admin/AdminMissingReport.jsx'
 import MissingHistory from './components/Department/Missing/MissingHistory.jsx';
@@ -209,19 +209,19 @@ const Router = createBrowserRouter([
     element: <div> <AdminNavbar /><AdminHome /><Footer /></div>
   },
   {
-    path: '/admin/view-department',
-    element: <div> <AdminNavbar /><ViewDepartment /><Footer /></div>
+    path: '/admin/view-user-details',
+    element: <div> <AdminNavbar /><AdminViewUsers /><Footer /></div>
   },
   {
-    path: '/admin/view-reports',
-    element: <div> <AdminNavbar />< ViewReports /><Footer /></div>
+    path: '/admin/view-crime-details',
+    element: <div> <AdminNavbar />< AdminCrimeDetails /><Footer /></div>
   },
   {
     path: '/admin/criminal-database',
     element: <div> <AdminNavbar />< CriminalDatabase /><Footer /></div>
   },
   {
-    path: '/admin/complaints',
+    path: '/admin/missing-reports',
     element: <div> <AdminNavbar />< AdminMissingReport /><Footer /></div>
   },
 

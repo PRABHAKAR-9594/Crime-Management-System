@@ -23,8 +23,9 @@ import { MissingHistory_route } from '../Routes/MissingHistory.route.js';
 import { MissingCrimeStatus_route } from '../Routes/MissingCrimeStatus.route.js';
 import { allReportRoute } from '../Routes/missing-report-all.route.js';
 dotenv.config();
-
-
+import { allCriminalRoute } from '../Routes/criminal-record-all.route.js';
+import { allCriminalDetailsRoute } from '../Routes/crime-details-all.route.js';
+import { allUsersRoute } from '../Routes/users-all.route.js';
 const app = express();
 
 app.use(cors());
@@ -54,6 +55,9 @@ MissingOpenCase_routing(app)
 MissingHistory_route(app)
 MissingCrimeStatus_route(app)
 allReportRoute(app)
+allCriminalRoute(app)
+allCriminalDetailsRoute(app)
+allUsersRoute(app)
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);
 

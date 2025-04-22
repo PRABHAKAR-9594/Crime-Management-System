@@ -1,112 +1,175 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { CSVLink } from "react-csv";
+import axios from "axios";
 
-const itemsPerPage = 6;
+const CriminalDatabase = () => {
+  const printRef = useRef();
 
-const mockCriminals = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  name: `Criminal ${i + 1}`,
-  aadhaar: `${100000000000 + i}`,
-  crime: i % 3 === 0 ? "Theft" : i % 3 === 1 ? "Murder" : "Cybercrime",
-  status: i % 2 === 0 ? "Captured" : "At Large",
-  address: `Sector-${(i % 50) + 1}, Metro City`,
-  arrestDate: i % 2 === 0 ? `2024-0${(i % 9) + 1}-15` : "N/A",
-  image: `https://via.placeholder.com/100x100?text=C${i + 1}`,
-}));
+  const [criminals, setCriminals] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-export default function CriminalDatabase() {
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [filtered, setFiltered] = useState(mockCriminals);
+  const recordsPerPage = 4;
 
   useEffect(() => {
-    const q = query.toLowerCase();
-    const result = mockCriminals.filter(
-      (c) =>
-        c.name.toLowerCase().includes(q) ||
-        c.aadhaar.includes(q) ||
-        c.crime.toLowerCase().includes(q) ||
-        c.status.toLowerCase().includes(q)
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await axios.get("http://localhost:8080/criminal-records-all"); // Replace with your API URL
+        setCriminals(response.data);
+      } catch (err) {
+        setError("Failed to fetch data. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filteredCriminals = criminals.filter((criminal) => {
+    const query = searchQuery.toLowerCase().trim();
+    return (
+      criminal.firstname?.toLowerCase().includes(query) ||
+      criminal.lastname?.toLowerCase().includes(query) ||
+      criminal.dob?.toLowerCase().includes(query) ||
+      criminal.adharnumber?.toLowerCase().includes(query) ||
+      criminal.crimetype?.toLowerCase().includes(query) ||
+      criminal.desc?.toLowerCase().includes(query)
     );
-    setFiltered(result);
-    setPage(1);
-  }, [query]);
+  });
 
-  const paginated = filtered.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage
-  );
+  const indexOfLast = currentPage * recordsPerPage;
+  const indexOfFirst = indexOfLast - recordsPerPage;
+  const currentCriminals = filteredCriminals.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredCriminals.length / recordsPerPage);
 
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const handlePrint = () => {
+    const printContents = printRef.current.innerHTML;
+    const printWindow = window.open('', '', 'height=700,width=900');
+    printWindow.document.write('<html><head><title>Crime Management System</title>');
+    printWindow.document.write(
+      '<style>body{font-family:sans-serif;padding:20px;} table{width:100%;border-collapse:collapse;margin-top:20px;} th,td{border:1px solid #000;padding:8px;text-align:left;} h1{text-align:center;color:#B91C1C}</style>'
+    );
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<h1>Crime Management System</h1>');
+    printWindow.document.write(printRef.current.innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  };
 
   return (
-    <div className="min-h-screen bg-black text-white p-20 font-mono tracking-wide">
-      <h2 className="text-4xl font-extrabold text-[#ff0000] text-center border-b-4 border-[#ff0000] pb-2 uppercase">
-        Criminal Records
-      </h2>
-
-      <div className="max-w-2xl mx-auto mt-6">
-        <input
-          type="text"
-          placeholder="Search by Name, Aadhaar, Crime, Status..."
-          className="w-full p-3 rounded-md bg-[#1a1a1a] text-white border border-red-600 focus:outline-none focus:ring-2 focus:ring-red-700"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+    <div className="w-full mt-10 min-h-screen bg-black text-white p-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <h1 className="text-3xl font-bold text-red-500">Criminal Records Dashboard</h1>
+        <div className="flex gap-4 w-full md:w-auto">
+          <input
+            type="text"
+            placeholder="Search by any detail..."
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="px-4 py-2 rounded-lg w-full md:w-[300px] text-black outline-none"
+          />
+          <button
+            onClick={handlePrint}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+          >
+            Print
+          </button>
+          <CSVLink
+            data={filteredCriminals}
+            headers={[
+              { label: "First Name", key: "firstname" },
+              { label: "Last Name", key: "lastname" },
+              { label: "DOB", key: "dob" },
+              { label: "Height", key: "height" },
+              { label: "Weight", key: "weight" },
+              { label: "Aadhar Number", key: "adharnumber" },
+              { label: "Crime Type", key: "crimetype" },
+              { label: "Description", key: "desc" },
+            ]}
+            filename="criminal_records.csv"
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+          >
+            Export to CSV
+          </CSVLink>
+        </div>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        {paginated.length > 0 ? (
-          paginated.map((c) => (
-            <div
-              key={c.id}
-              className="bg-[#111] p-5 rounded-lg border border-[#ff0000] shadow-md"
+      {loading && <p className="text-center text-red-400">Loading...</p>}
+      {error && <p className="text-center text-red-400">{error}</p>}
+
+      {!loading && !error && (
+        <div ref={printRef}>
+          <table className="w-full border border-red-500">
+            <thead>
+              <tr className="bg-gray-800 text-red-400">
+                <th className="p-3 border border-red-500">Photo</th>
+                <th className="p-3 border border-red-500">First Name</th>
+                <th className="p-3 border border-red-500">Last Name</th>
+                <th className="p-3 border border-red-500">DOB</th>
+                <th className="p-3 border border-red-500">Height</th>
+                <th className="p-3 border border-red-500">Weight</th>
+                <th className="p-3 border border-red-500">Aadhar Number</th>
+                <th className="p-3 border border-red-500">Crime Type</th>
+                <th className="p-3 border border-red-500">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentCriminals.length === 0 ? (
+                <tr>
+                  <td colSpan="9" className="text-center py-4 text-red-400">
+                    No results found
+                  </td>
+                </tr>
+              ) : (
+                currentCriminals.map((criminal, index) => (
+                  <tr key={index} className="hover:bg-gray-900">
+                    <td className="p-3 border border-red-500">
+                      <img src={criminal.criminalImg} alt="Criminal" className="w-16 h-16 rounded-md" />
+                    </td>
+                    <td className="p-3 border border-red-500">{criminal.firstname}</td>
+                    <td className="p-3 border border-red-500">{criminal.lastname}</td>
+                    <td className="p-3 border border-red-500">{criminal.dob}</td>
+                    <td className="p-3 border border-red-500">{criminal.height}</td>
+                    <td className="p-3 border border-red-500">{criminal.weight}</td>
+                    <td className="p-3 border border-red-500">{criminal.adharnumber}</td>
+                    <td className="p-3 border border-red-500">{criminal.crimetype}</td>
+                    <td className="p-3 border border-red-500">{criminal.desc}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {filteredCriminals.length > recordsPerPage && (
+        <div className="flex justify-center mt-6 space-x-2">
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-4 py-2 rounded-lg border ${
+                currentPage === i + 1
+                  ? "bg-red-500 text-white"
+                  : "bg-gray-800 text-red-400 hover:bg-gray-700"
+              }`}
             >
-              <div className="flex items-center gap-4 mb-4 border-b border-gray-600 pb-2">
-                <img
-                  src={c.image}
-                  alt={c.name}
-                  className="w-20 h-20 rounded border-2 border-[#ff0000]"
-                />
-                <div>
-                  <h3 className="text-xl font-bold text-[#ff0000] uppercase">{c.name}</h3>
-                  <p className="text-sm text-gray-300">Aadhaar: {c.aadhaar}</p>
-                </div>
-              </div>
-              <div className="text-sm space-y-1 text-gray-200">
-                <p><strong className="text-white">Crime:</strong> {c.crime}</p>
-                <p><strong className="text-white">Status:</strong> {c.status}</p>
-                <p><strong className="text-white">Address:</strong> {c.address}</p>
-                <p><strong className="text-white">Arrest Date:</strong> {c.arrestDate}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="col-span-full text-center text-gray-400 mt-10 text-lg">
-            No records found.
-          </div>
-        )}
-      </div>
-
-      {/* Pagination */}
-      {filtered.length > itemsPerPage && (
-        <div className="flex justify-center mt-10 space-x-4">
-          <button
-            onClick={() => setPage((p) => Math.max(p - 1, 1))}
-            className="px-4 py-2 bg-[#222] border border-[#ff0000] text-white uppercase font-bold"
-            disabled={page === 1}
-          >
-            Previous
-          </button>
-          <span className="text-lg font-bold text-[#ff0000]">{page} / {totalPages}</span>
-          <button
-            onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-            className="px-4 py-2 bg-[#222] border border-[#ff0000] text-white uppercase font-bold"
-            disabled={page === totalPages}
-          >
-            Next
-          </button>
+              {i + 1}
+            </button>
+          ))}
         </div>
       )}
     </div>
   );
-}
+};
+
+export default CriminalDatabase;
