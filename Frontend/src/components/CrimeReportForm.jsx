@@ -263,7 +263,7 @@ Crime Reporting System Team
                         >
                             <option value="">Select a crime type</option>
                             <option value="Theft">Theft</option>
-                            <option value="Fraud">Cybercrime</option>
+                            <option value="Cybercrime">Cybercrime</option>
                             <option value="Murder">Murder</option>
 
 
