@@ -76,7 +76,7 @@ const [barValues, setBarValues] = useState([]);
       title: "Missing Reports",
       value: stats.pendingComplaints,
       icon: <FaExclamationTriangle className="text-red-500 text-3xl" />,
-      link: "/admin/missi",
+      link: "/admin/missing-reports",
     },
   ];
 
