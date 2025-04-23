@@ -18,6 +18,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { use } from "react";
+import axios from "axios";
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
@@ -29,6 +31,15 @@ const AdminHome = () => {
     criminalReport: 0,
     MissingReport: 0,
   });
+
+  const [pieValues, setPieValues] = useState({
+    resolved: 0,
+    pending: 0,
+    underInvestigation: 0,
+  });
+
+  const [barLabels, setBarLabels] = useState([]);
+const [barValues, setBarValues] = useState([]);
 
   useEffect(() => {
     // Simulated API fetch for real-time updates
@@ -69,13 +80,33 @@ const AdminHome = () => {
     },
   ];
 
-  // Bar Chart Data (Crime Report Statistics)
+  useEffect(() => {
+    const fetchCrimeTypeData = async () => {
+      try {
+        const res = await axios.get("http://localhost:8080/getcrimeTypeCount");
+        
+  
+        const labels = Object.keys(res.data).map(
+          (label) => label.charAt(0).toUpperCase() + label.slice(1)
+        ); // Capitalize first letter
+        const values = Object.values(res.data);
+  
+        setBarLabels(labels);
+        setBarValues(values);
+      } catch (err) {
+        console.error("Error fetching crime type data:", err);
+      }
+    };
+  
+    fetchCrimeTypeData();
+  }, []);
+  
   const barData = {
-    labels: ["Robbery", "Assault", "Fraud", "Homicide", "Cybercrime", "Vandalism"],
+    labels: barLabels,
     datasets: [
       {
         label: "Reported Cases (Monthly)",
-        data: [120, 90, 140, 50, 200, 75],
+        data: barValues,
         backgroundColor: [
           "#FF3131",
           "#991B1B",
@@ -83,6 +114,10 @@ const AdminHome = () => {
           "#B91C1C",
           "#F43F5E",
           "#E11D48",
+          "#FF6B6B",
+          "#C53030",
+          "#9B2C2C",
+          "#742A2A",
         ],
         borderColor: "#FF3131",
         borderWidth: 1,
@@ -91,16 +126,50 @@ const AdminHome = () => {
   };
 
   // Pie Chart Data (Case Status)
-  const pieData = {
-    labels: ["Resolved", "Pending", "Under Investigation"],
-    datasets: [
-      {
-        data: [45, 35, 20],
-        backgroundColor: ["#FF3131", "#991B1B", "#7F1D1D"],
-        hoverBackgroundColor: ["#FF6161", "#B91C1C", "#9D1B1B"],
-      },
-    ],
+// Api for pieData
+useEffect(() => {
+  const fetchPieData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/getPiedata");
+      
+      // Assuming your API returns { resolved: X, pending: Y, underInvestigation: Z }
+      setPieValues({
+        open: res.data.open || 0,
+        closed: res.data.closed || 0,
+        underInvestigation: res.data.underInvestigation || 0,
+      });
+    } catch (err) {
+      console.error("Error fetching pie data:", err);
+    }
   };
+
+  fetchPieData();
+}, []);
+
+const pieData = {
+  labels: ["Open", "Closed", "Under Investigation"],
+  datasets: [
+    {
+      data: [
+        pieValues.open,
+        pieValues.closed,
+        pieValues.underInvestigation,
+      ],
+      backgroundColor: [
+        "#FF5733",  // Vivid Orange-Red (Open)
+        "#33FF57",  // Bright Green (Closed)
+        "#3380FF",  // Bright Blue (Under Investigation)
+      ],
+      hoverBackgroundColor: [
+        "#FF784E",  // Lighter Orange-Red
+        "#66FF7A",  // Lighter Green
+        "#5C9DFF",  // Lighter Blue
+      ],
+      backgroundColor: ["#FF3131", "#991B1B", "#7F1D1D"],
+      hoverBackgroundColor: ["#FF6161", "#B91C1C", "#9D1B1B"],
+    },
+  ],
+};
 
   return (
     <div className="w-full min-h-screen bg-black text-white p-10">

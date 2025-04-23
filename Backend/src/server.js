@@ -26,6 +26,8 @@ dotenv.config();
 import { allCriminalRoute } from '../Routes/criminal-record-all.route.js';
 import { allCriminalDetailsRoute } from '../Routes/crime-details-all.route.js';
 import { allUsersRoute } from '../Routes/users-all.route.js';
+import { getPiedataRoute } from '../Routes/piedata.route.js';
+import { getcrimeTypeCountRoute } from '../Routes/crimeTypecount.route.js';
 const app = express();
 
 app.use(cors());
@@ -58,6 +60,8 @@ allReportRoute(app)
 allCriminalRoute(app)
 allCriminalDetailsRoute(app)
 allUsersRoute(app)
+getPiedataRoute(app)
+getcrimeTypeCountRoute(app)
 app.listen(process.env.PORT,()=>{
 console.log(`Server is running on http://localhost:${process.env.PORT} `);
 
