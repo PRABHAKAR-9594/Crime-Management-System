@@ -30,7 +30,7 @@ export default function Addcriminal() {
     if (name === "firstname" || name === "lastname") {
       if (!/^[a-zA-Z\s]*$/.test(value)) return;
     } else if (name === "height" || name === "weight") {
-      if (!/^\d{0,3}(\.\d{0,2})?$/.test(value)) return; // ✅ updated to allow decimal
+     // ✅ updated to allow decimal
     } else if (name === "adharnumber") {
       if (!/^\d{0,12}$/.test(value)) return;
     } else if (name === "crimetype") {
@@ -130,9 +130,9 @@ export default function Addcriminal() {
 
             if (key === "dob") {
               const today = new Date().toISOString().split("T")[0];
-              const oneYearAgo = new Date();
-              oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-              const minDate = oneYearAgo.toISOString().split("T")[0];
+              // const oneYearAgo = new Date();
+              // oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+              // const minDate = oneYearAgo.toISOString().split("T")[0];
 
               return (
                 <input
@@ -141,8 +141,8 @@ export default function Addcriminal() {
                   name={key}
                   value={formData[key]}
                   onChange={handleChange}
-                  min={minDate}
-                  max={today}
+                  // min={minDate}
+                   max={today}
                   placeholder="DOB"
                   className="w-full p-3 rounded bg-black text-red-500 border border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
