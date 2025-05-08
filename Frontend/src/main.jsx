@@ -12,7 +12,7 @@ import Profile from './components/Profile.jsx';
 import CrimeReportForm from './components/CrimeReportForm.jsx';
 import Test from './components/Test.jsx';
 import AboutPage from './components/AboutPage.jsx';
-import ChatbotPage from './components/Chatbotpage.jsx';
+import ChatbotPage from './components/ChatbotPage.jsx';
 import StatusPage from './components/StatusPage.jsx';
 import ChatAgent from './components/ChatAgent.jsx';
 import BeAwarePage from './components/BeAwarePage.jsx';
