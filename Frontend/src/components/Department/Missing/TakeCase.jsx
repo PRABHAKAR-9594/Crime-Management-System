@@ -24,7 +24,7 @@ const MissingTakeCase = () => {
   useEffect(() => {
     const fetchCases = async () => {
       try {
-        const response = await axios.post("http://localhost:8080/missingtakecasesearch", {
+        const response = await axios.post("https://crime-management-system-p889.onrender.com/missingtakecasesearch", {
           status: "Open"
         });
 
@@ -46,7 +46,7 @@ const MissingTakeCase = () => {
 
   const handleTakeCase = async (acknowledgeNumber, caseUsername) => {
     try {
-      const response = await axios.post("http://localhost:8080/missingupdateassignofficer", {
+      const response = await axios.post("https://crime-management-system-p889.onrender.com/missingupdateassignofficer", {
         acknowledgeNumber,
         username: uname,
         name: Name,
@@ -57,7 +57,7 @@ const MissingTakeCase = () => {
         setTakenCases((prev) => ({ ...prev, [acknowledgeNumber]: true }));
 
         // ✅ Get user email using case's username
-        const profileRes = await axios.post("http://localhost:8080/profile", {
+        const profileRes = await axios.post("https://crime-management-system-p889.onrender.com/profile", {
           username: caseUsername
         });
 
@@ -66,7 +66,7 @@ const MissingTakeCase = () => {
         
         if (userEmail) {
           // ✅ Send email to user
-          await axios.post("http://localhost:8080/sendGmail", {
+          await axios.post("https://crime-management-system-p889.onrender.com/sendGmail", {
             gmail: userEmail,
             Subject: "Missing Case Status Update",
             text: `Dear User,

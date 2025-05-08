@@ -16,7 +16,7 @@ const DHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/dept/history', {
+        const response = await axios.post('https://crime-management-system-p889.onrender.com/dept/history', {
           username: username
         });
         setHistoryRecords(response.data.records);

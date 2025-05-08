@@ -21,7 +21,7 @@ export default function MissingStatusPage() {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:8080/missingstatus", {
+      const response = await axios.post("https://crime-management-system-p889.onrender.com/missingstatus", {
         AcknowledgeNumber: ackNumber
       });
       setStatusData(response.data);

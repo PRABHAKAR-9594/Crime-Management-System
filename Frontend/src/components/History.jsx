@@ -9,7 +9,7 @@ const HistoryPage = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.post("http://localhost:8080/userhistory",{username:Username});
+        const response = await axios.post("https://crime-management-system-p889.onrender.com/userhistory",{username:Username});
         console.log(response.data.records); // Debugging: Check API respons
         setHistory(response.data.records);
       } catch (error) {

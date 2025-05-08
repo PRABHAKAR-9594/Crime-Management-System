@@ -22,7 +22,7 @@ export default function StatusPage() {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:8080/CrimeStatus",{"AcknowledgeNumber":ackNumber});
+      const response = await axios.post("https://crime-management-system-p889.onrender.com/CrimeStatus",{"AcknowledgeNumber":ackNumber});
       
    ;
       setStatusData(response.data);

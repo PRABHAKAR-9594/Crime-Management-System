@@ -83,7 +83,7 @@ const [barValues, setBarValues] = useState([]);
   useEffect(() => {
     const fetchCrimeTypeData = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/getcrimeTypeCount");
+        const res = await axios.get("https://crime-management-system-p889.onrender.com/getcrimeTypeCount");
         
   
         const labels = Object.keys(res.data).map(
@@ -130,7 +130,7 @@ const [barValues, setBarValues] = useState([]);
 useEffect(() => {
   const fetchPieData = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/getPiedata");
+      const res = await axios.get("https://crime-management-system-p889.onrender.com/getPiedata");
       
       // Assuming your API returns { resolved: X, pending: Y, underInvestigation: Z }
       setPieValues({

@@ -18,7 +18,7 @@ const CriminalDatabase = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get("http://localhost:8080/criminal-records-all"); // Replace with your API URL
+        const response = await axios.get("https://crime-management-system-p889.onrender.com/criminal-records-all"); // Replace with your API URL
         setCriminals(response.data);
       } catch (err) {
         setError("Failed to fetch data. Please try again later.");

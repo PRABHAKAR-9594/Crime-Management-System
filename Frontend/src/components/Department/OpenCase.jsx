@@ -19,7 +19,7 @@ const OpenCase = () => {
       try {
         console.log("Fetching open cases…");
         const { data: { records = [] } } = await axios.post(
-          'http://localhost:8080/dept/opencase',
+          'https://crime-management-system-p889.onrender.com/dept/opencase',
           { officerUserName }
         );
         setCases(records);
@@ -27,7 +27,7 @@ const OpenCase = () => {
         const usernames = Array.from(new Set(records.map(c => c.username)));
         const profilePromises = usernames.map(username =>
           axios
-            .post('http://localhost:8080/profile', { username })
+            .post('https://crime-management-system-p889.onrender.com/profile', { username })
             .then(res => {
               const profile = res.data.response || res.data;
               return { username, profile };
@@ -58,7 +58,7 @@ const OpenCase = () => {
     try {
       console.log(`Closing case ${ackNumber}…`);
       await axios.post(
-        'http://localhost:8080/dept/closecase',
+        'https://crime-management-system-p889.onrender.com/dept/closecase',
         { acknowledgeNumber: ackNumber }
       );
       setCases(cs =>
@@ -88,7 +88,7 @@ Your Crime Reporting Team
         try {
           console.log(`Sending email to ${profile.email}…`);
           await axios.post(
-            'http://localhost:8080/sendGmail',
+            'https://crime-management-system-p889.onrender.com/sendGmail',
             {
               gmail: profile.email,
               Subject:subject,

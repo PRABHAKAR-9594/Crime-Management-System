@@ -16,7 +16,7 @@ const AdminViewUsers = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get("http://localhost:8080/users-all");
+        const res = await axios.get("https://crime-management-system-p889.onrender.com/users-all");
         setUsers(res.data);
       } catch (err) {
         setError("Failed to fetch user details.");

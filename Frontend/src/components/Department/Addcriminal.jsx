@@ -93,7 +93,7 @@ export default function Addcriminal() {
         formDataToSend.append(key, formData[key]);
       });
 
-      await axios.post("http://localhost:8080/createcriminal", { ...formData });
+      await axios.post("https://crime-management-system-p889.onrender.com/createcriminal", { ...formData });
 
       setFormData({
         firstname: "",

@@ -16,7 +16,7 @@ const AdminCrimeDetails = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get("http://localhost:8080/crime-details-all");
+        const res = await axios.get("https://crime-management-system-p889.onrender.com/crime-details-all");
         setCrimes(res.data);
       } catch (err) {
         setError("Failed to fetch crime details.");

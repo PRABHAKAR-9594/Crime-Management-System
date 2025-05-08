@@ -33,7 +33,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post("http://localhost:8080/profile", {
+        const response = await axios.post("https://crime-management-system-p889.onrender.com/profile", {
           username: Username,
         },
           {
@@ -86,7 +86,7 @@ const handleSave = async () => {
   }
 
   try {
-    const response = await axios.post("http://localhost:8080/updateProfile", {
+    const response = await axios.post("https://crime-management-system-p889.onrender.com/updateProfile", {
       username: Username, ...user
     },
     {
@@ -110,7 +110,7 @@ Stay secure, stay aware.
 Best regards,
 Crime Management System Team`
 
-  await axios.post('http://localhost:8080/sendGmail', {
+  await axios.post('https://crime-management-system-p889.onrender.com/sendGmail', {
     gmail: user.email,
     text: ProfileMessage,
     Subject:Subject,

@@ -207,7 +207,7 @@ Crime Reporting System Team
 
 
 
-            const response = await axios.post('http://localhost:8080/CrimeRegForm ', {
+            const response = await axios.post('https://crime-management-system-p889.onrender.com/CrimeRegForm ', {
                 ...formData,
                 acknowledgeNumber: ackNumber
             }, {
@@ -218,7 +218,7 @@ Crime Reporting System Team
 
             });
 
-            await axios.post('http://localhost:8080/sendGmail', {
+            await axios.post('https://crime-management-system-p889.onrender.com/sendGmail', {
                 gmail: Email,
                 text: Message,
                 Subject: Subject,

@@ -17,7 +17,7 @@ const MissingHistory = () => {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                const response = await axios.post('http://localhost:8080/dept/missinghistory', {
+                const response = await axios.post('https://crime-management-system-p889.onrender.com/dept/missinghistory', {
                     username: Username
                 });
                 setHistoryRecords(response.data.records);

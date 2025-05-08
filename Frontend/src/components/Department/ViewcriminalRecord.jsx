@@ -20,7 +20,7 @@ export default function ViewCriminalRecord() {
     if (!validateAadhar(adharnumber)) return;
 
     try {
-      const response = await axios.post("http://localhost:8080/searchcriminal", { adharnumber });
+      const response = await axios.post("https://crime-management-system-p889.onrender.com/searchcriminal", { adharnumber });
       if (response.data.records) {
         const groupedCriminals = {};
         response.data.records.forEach((record) => {

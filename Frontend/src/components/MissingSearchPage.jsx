@@ -20,7 +20,7 @@ const MissingSearchPage = () => {
     setLoading(true);
     try {
       console.log(searchName, searchPincode, daysFilter);
-      const { data } = await axios.get("http://localhost:8080/searchmissing", {
+      const { data } = await axios.get("https://crime-management-system-p889.onrender.com/searchmissing", {
         params: {
           name: searchName,
           pincode: searchPincode,

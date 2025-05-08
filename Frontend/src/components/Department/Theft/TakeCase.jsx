@@ -25,7 +25,7 @@ console.log("This is contact ",contact);
   useEffect(() => {
     const fetchCases = async () => {
       try {
-        const response = await axios.post("http://localhost:8080/takecasesearch", {
+        const response = await axios.post("https://crime-management-system-p889.onrender.com/takecasesearch", {
           crimetype: "Theft",
           status: "Open",
         });
@@ -51,7 +51,7 @@ console.log("This is contact ",contact);
     try {
       console.log("Taking case with Acknowledgement Number:", acknowledgeNumber);
 
-      const response = await axios.post("http://localhost:8080/updateassignofficer", {
+      const response = await axios.post("https://crime-management-system-p889.onrender.com/updateassignofficer", {
         acknowledgeNumber,
         username: uname,
         name: Name,

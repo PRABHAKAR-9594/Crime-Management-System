@@ -24,7 +24,7 @@ export default function Test() {
     formData.append("image", selectedFile); // "image" should match the backend field name
 
     try {
-      const response = await axios.post("http://localhost:8080/Test", formData, {
+      const response = await axios.post("https://crime-management-system-p889.onrender.com/Test", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

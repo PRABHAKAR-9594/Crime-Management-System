@@ -59,7 +59,7 @@ The CMS Team
 
 
         try {
-            await axios.post('http://localhost:8080/sendGmail', {
+            await axios.post('https://crime-management-system-p889.onrender.com/sendGmail', {
                 gmail: email,
                 text: emailContent,
                 Subject: 'Verification OTP',
@@ -83,7 +83,7 @@ const onSubmit = async (data) => {
     } else if (otp == generatedOtp) {
         try {
 
-            await axios.post('http://localhost:8080/register', { ...data, role: 'murderofficer' });
+            await axios.post('https://crime-management-system-p889.onrender.com/register', { ...data, role: 'murderofficer' });
             showAlert('success', 'Registration successful!');
 
 
@@ -102,7 +102,7 @@ Best regards,
 Crime Management System Team`
 
             setTimeout( async()=>{
-                await axios.post('http://localhost:8080/sendGmail', {
+                await axios.post('https://crime-management-system-p889.onrender.com/sendGmail', {
                     gmail: data.email,
                     text: RegestrationMessage,
                     Subject: Subject,

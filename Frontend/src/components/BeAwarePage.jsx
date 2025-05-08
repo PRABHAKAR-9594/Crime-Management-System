@@ -25,7 +25,7 @@ useEffect(()=>{
     
     try {
 
-      const response = await axios.post("http://localhost:8080/beaware", {
+      const response = await axios.post("https://crime-management-system-p889.onrender.com/beaware", {
         pincode: pincode,
       });
 

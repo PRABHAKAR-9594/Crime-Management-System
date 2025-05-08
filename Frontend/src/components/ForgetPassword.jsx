@@ -37,7 +37,7 @@ function ForgetPassword() {
 
     const handleGenerateOtp = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/verifyMobile', {
+            const response = await axios.post('https://crime-management-system-p889.onrender.com/verifyMobile', {
                 phone: mobileNumber,
                 email: email
             });
@@ -52,7 +52,7 @@ function ForgetPassword() {
                 const subject = "Crime Portal Password Reset OTP";
                 const text = `This is your OTP: ${otp}.\nIt is valid for 10 minutes.\n\nIf not requested, ignore immediately.`;
 
-                await axios.post('http://localhost:8080/sendGmail', {
+                await axios.post('https://crime-management-system-p889.onrender.com/sendGmail', {
                     text: text,
                     gmail: email,
                     Subject: subject
@@ -92,7 +92,7 @@ function ForgetPassword() {
 
     const handleResetPassword = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/resetPassword', {
+            const response = await axios.post('https://crime-management-system-p889.onrender.com/resetPassword', {
                 phone: mobileNumber,
                 email: email,
                 newPassword: newPassword
